@@ -243,6 +243,10 @@ service.  This allows Okta to fetch all user resources in an
 efficient manner for reconciliation and initial bootstrap (to
 get all users from your app into the system).
 
+Here is an example using `curl` to make a GET request to `/Users`:
+
+    curl https://joel-scim.herokuapp.com/scim/v2/Users
+
 Below is how the sample application handles listing user resources,
 with support for filtering and pagination:
 
@@ -755,17 +759,20 @@ Here is how to run the example code on your machine:
 First, start by doing a `git checkout` of this repository, then
 `cd` to directory that `git` creates. Then, do the following:
 
-1.  Create an isolated Python environment named "venv" using [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/):
+1.  `cd` to the directory you just checked out:
+    
+        $ cd okta-scim-beta
+2.  Create an isolated Python environment named "venv" using [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/):
     
         $ virtualenv venv
-2.  Next, activate the newly created virtualenv:
+3.  Next, activate the newly created virtualenv:
     
         $ source venv/bin/activate
-3.  Then, install the dependencies for the sample SCIM server using
+4.  Then, install the dependencies for the sample SCIM server using
     Python's ["pip" package manager](https://en.wikipedia.org/wiki/Pip_%28package_manager%29):
     
         $ pip install -r requirements.txt
-4.  Finally, start the example SCIM server using this command:
+5.  Finally, start the example SCIM server using this command:
     
         $ python scim-server.py
 
@@ -1015,206 +1022,78 @@ only happen if the User table isn't defined.
             db.create_all()
         app.debug = True
         socketio.run(app)
-        
-## Frequently Ask Questions (FAQ)
-   
-* What are the differences between SCIM 1.1 and 2.0?    
-   
-| Section | SCIM 1.1 | SCIM 2.0 | Notes |
-| --- | --- | --- | --- |
-| Namespaces | <ul><li>urn:scim:schemas:core:1.0</li><li>urn:scim:schemas:extension:enterprise:1.0</li><ul> | <ul><li>urn:ietf:params:scim:schemas:core:2.0:User</li><li>urn:ietf:params:scim:schemas:extension:enterprise:2.0:User</li><ul> | Namespaces are different therefore 2.0 is not backwards compatible with 1.1 |
-| Service Provider Config Endpoint | /ServiceProviderConfig<b>s</b> | /ServiceProviderConfig | Notice 2.0 does NOT have an 's' at the end |
-| Patch Protocol | [Section 3.3.2](http://www.simplecloud.info/specs/draft-scim-api-01.html#edit-resource-with-patch) | [Section 3.5.2: Uses JSON Patch](https://tools.ietf.org/html/rfc7644#section-3.5.2) | |
-| Error Response Schema | [Section 3.9](http://www.simplecloud.info/specs/draft-scim-api-01.html#anchor6) | [Section 3.12](https://tools.ietf.org/html/rfc7644#section-3.12) | |
-| Reference Type | N/A | Supports ref type pointing to the full url of another SCIM Resource | |
-| Query by POST /search | N/A | [Section 3.4.3](https://tools.ietf.org/html/rfc7644#section-3.4.3) | |  
 
-* What if the SCIM 1.1 spec isn't clear on a specific use case or scenario?   
+## Frequently Asked Questions (FAQ)
 
-    Okta recommends looking at the SCIM 2.0 spec for more clarification.  The SCIM 2.0 spec provides more guidelines and examples for various scenario's.
+-   What are the differences between SCIM 1.1 and 2.0?    
+    
+    | Section | SCIM 1.1 | SCIM 2.0 | Notes |
+    | --- | --- | --- | --- |
+    | Namespaces | <ul><li>urn:scim:schemas:core:1.0</li><li>urn:scim:schemas:extension:enterprise:1.0</li><ul> | <ul><li>urn:ietf:params:scim:schemas:core:2.0:User</li><li>urn:ietf:params:scim:schemas:extension:enterprise:2.0:User</li><ul> | Namespaces are different therefore 2.0 is not backwards compatible with 1.1 |
+    | Service Provider Config Endpoint | /ServiceProviderConfig<b>s</b> | /ServiceProviderConfig | Notice 2.0 does NOT have an 's' at the end |
+    | Patch Protocol | [Section 3.3.2](http://www.simplecloud.info/specs/draft-scim-api-01.html#edit-resource-with-patch) | [Section 3.5.2: Uses JSON Patch](https://tools.ietf.org/html/rfc7644#section-3.5.2) | |
+    | Error Response Schema | [Section 3.9](http://www.simplecloud.info/specs/draft-scim-api-01.html#anchor6) | [Section 3.12](https://tools.ietf.org/html/rfc7644#section-3.12) | |
+    | Reference Type | N/A | Supports ref type pointing to the full url of another SCIM Resource | |
+    | Query by POST /search | N/A | [Section 3.4.3](https://tools.ietf.org/html/rfc7644#section-3.4.3) | |
+-   What if the SCIM 1.1 spec isn't clear on a specific use case or
+    scenario?
+    
+    Okta recommends looking at the SCIM 2.0 spec for more
+    clarification.  The SCIM 2.0 spec provides more guidelines and
+    examples for various scenario's.
 
-*  Why do I need to implement the 'type' attribute for attributes such as emails/phoneNumbers/addresses?
-
-    The SCIM User Profile allows for an array of emails.  The only way to differentiate between emails is to use the 'type' sub-attribute.  The SCIM spec recommends in [Section 2.4](https://tools.ietf.org/html/rfc7643#section-2.4)
-> When returning multi-valued attributes, service providers SHOULD
-> canonicalize the value returned (e.g., by returning a value for the
-> sub-attribute "type", such as "home" or "work") when appropriate
-> (e.g., for email addresses and URLs).
->
-> Service providers MAY return element objects with the same "value"
-> sub-attribute more than once with a different "type" sub-attribute
-> (e.g., the same email address may be used for work and home) but
-> SHOULD NOT return the same (type, value) combination more than once
-> per attribute, as this complicates processing by the client.
->
-> When defining schema for multi-valued attributes, it is considered a
-> good practice to provide a type attribute that MAY be used for the
-> purpose of canonicalization of values.  In the schema definition for
-> an attribute, the service provider MAY define the recommended
-> canonical values (see Section 7).
-
-* I only have one email/phone number/address in my user profile.  Do I need to implement the array of emails/phone numbers/addresses?
-
-    Yes, the server should return these fields in an array which is specified in the SCIM spec as a multi-valued attribute. [Section 2.4](https://tools.ietf.org/html/rfc7643#section-2.4)
+-   Why do I need to implement the `type` attribute for attributes
+    such as emails/phoneNumbers/addresses?
+    
+    The SCIM User Profile allows for an array of emails.  The only
+    way to differentiate between emails is to use the `type`
+    sub-attribute.  See [section 2.4](https://tools.ietf.org/html/rfc7643#section-2.4) of RFC 7643 for more details:
+    
+    > When returning multi-valued attributes, service providers SHOULD
+    > canonicalize the value returned (e.g., by returning a value for the
+    > sub-attribute "type", such as "home" or "work") when appropriate
+    > (e.g., for email addresses and URLs).
+    > 
+    > Service providers MAY return element objects with the same "value"
+    > sub-attribute more than once with a different "type" sub-attribute
+    > (e.g., the same email address may be used for work and home) but
+    > SHOULD NOT return the same (type, value) combination more than once
+    > per attribute, as this complicates processing by the client.
+    > 
+    > When defining schema for multi-valued attributes, it is considered a
+    > good practice to provide a type attribute that MAY be used for the
+    > purpose of canonicalization of values.  In the schema definition for
+    > an attribute, the service provider MAY define the recommended
+    > canonical values (see Section 7).
+-   I only have one email/phone number/address in my user profile.
+    Do I need to implement the array of emails/phone
+    numbers/addresses?
+    
+    Yes, the you must return these fields in an array, which is
+    specified in the SCIM spec as a multi-valued attribute: [Section
+    2.4](https://tools.ietf.org/html/rfc7643#section-2.4)
 
 ## Dependencies
 
 Here is a detailed list of the dependencies that this example SCIM
 server depends on, and what each dependency does.
 
-<table id="requirements-table" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
-<colgroup>
-<col  class="left" />
-
-<col  class="left" />
-
-<col  class="right" />
-
-<col  class="left" />
-
-<col  class="left" />
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="left">name</th>
-<th scope="col" class="left">equality</th>
-<th scope="col" class="right">version</th>
-<th scope="col" class="left">description</th>
-<th scope="col" class="left">url</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td class="left">Flask</td>
-<td class="left">>=</td>
-<td class="right">0.10.1</td>
-<td class="left">A web framework built with a small core and easy-to-extend philosophy.</td>
-<td class="left">`http://flask.pocoo.org`</td>
-</tr>
-
-
-<tr>
-<td class="left">Flask-SQLAlchemy</td>
-<td class="left">>=</td>
-<td class="right">2.1</td>
-<td class="left">Adds SQLAlchemy support to Flask.</td>
-<td class="left">`https://github.com/mitsuhiko/flask-sqlalchemy`</td>
-</tr>
-
-
-<tr>
-<td class="left">Flask-SocketIO</td>
-<td class="left">>=</td>
-<td class="right">2.1</td>
-<td class="left">Socket.IO integration for Flask applications.</td>
-<td class="left">`https://github.com/miguelgrinberg/Flask-SocketIO`</td>
-</tr>
-
-
-<tr>
-<td class="left">gunicorn</td>
-<td class="left">>=</td>
-<td class="right">19.4.5</td>
-<td class="left">A pre-fork worker model HTTP server for WSGI.</td>
-<td class="left">`https://en.wikipedia.org/wiki/Gunicorn_%28HTTP_server%29`</td>
-</tr>
-
-
-<tr>
-<td class="left">Jinja2</td>
-<td class="left">>=</td>
-<td class="right">2.8</td>
-<td class="left">A modern and designer-friendly templating language.</td>
-<td class="left">`http://jinja.pocoo.org/docs/dev`</td>
-</tr>
-
-
-<tr>
-<td class="left">MarkupSafe</td>
-<td class="left">>=</td>
-<td class="right">0.23</td>
-<td class="left">A library for Python that implements a unicode string.</td>
-<td class="left">`http://www.pocoo.org/projects/markupsafe`</td>
-</tr>
-
-
-<tr>
-<td class="left">SQLAlchemy</td>
-<td class="left">>=</td>
-<td class="right">1.0.12</td>
-<td class="left">SQL toolkit and Object Relational Mapper.</td>
-<td class="left">`https://pypi.python.org/pypi/SQLAlchemy`</td>
-</tr>
-
-
-<tr>
-<td class="left">Werkzeug</td>
-<td class="left">>=</td>
-<td class="right">0.11.4</td>
-<td class="left">A WSGI utility library for Python.</td>
-<td class="left">`http://werkzeug.pocoo.org`</td>
-</tr>
-
-
-<tr>
-<td class="left">itsdangerous</td>
-<td class="left">>=</td>
-<td class="right">0.24</td>
-<td class="left">Used to send data to untrusted environments.</td>
-<td class="left">`http://pythonhosted.org/itsdangerous`</td>
-</tr>
-
-
-<tr>
-<td class="left">python-engineio</td>
-<td class="left">>=</td>
-<td class="right">0.8.8</td>
-<td class="left">Implementation of the Engine.IO realtime server.</td>
-<td class="left">`https://github.com/miguelgrinberg/python-engineio`</td>
-</tr>
-
-
-<tr>
-<td class="left">python-socketio</td>
-<td class="left">>=</td>
-<td class="right">1.0</td>
-<td class="left">Implementation of the Socket.IO realtime server.</td>
-<td class="left">`https://github.com/miguelgrinberg/python-socketio`</td>
-</tr>
-
-
-<tr>
-<td class="left">six</td>
-<td class="left">>=</td>
-<td class="right">1.10.0</td>
-<td class="left">Python 2 and 3 compatibility library.</td>
-<td class="left">`https://pypi.python.org/pypi/six`</td>
-</tr>
-
-
-<tr>
-<td class="left">wsgiref</td>
-<td class="left">>=</td>
-<td class="right">0.1.2</td>
-<td class="left">Provides validation support for WSGI.</td>
-<td class="left">`https://pypi.python.org/pypi/wsgiref`</td>
-</tr>
-
-
-<tr>
-<td class="left">psycopg2</td>
-<td class="left">&#xa0;</td>
-<td class="right">&#xa0;</td>
-<td class="left">Popular PostgreSQL adapter.</td>
-<td class="left">`http://initd.org/psycopg/`</td>
-</tr>
-</tbody>
-</table>
-
-(This table is used to generate the `requirements.txt` file for this project)
+| Name | Version | Description | License |
+| ---- | --- | --- | --- |
+| [Flask](http://flask.pocoo.org) | 0.10.1 | A web framework built with a small core and easy-to-extend philosophy. | [BSD 3-Clause](http://flask.pocoo.org/docs/0.10/license/#flask-license) |
+| [Flask-SQLAlchemy](https://github.com/mitsuhiko/flask-sqlalchemy) | 2.1 | Adds SQLAlchemy support to Flask. | [BSD 3-Clause](https://github.com/mitsuhiko/flask-sqlalchemy/blob/master/LICENSE) |
+| [Flask-SocketIO](https://github.com/miguelgrinberg/Flask-SocketIO) | 2.1 | Socket.IO integration for Flask applications. | [MIT](https://github.com/miguelgrinberg/Flask-SocketIO/blob/master/LICENSE) |
+| [gunicorn](http://gunicorn.org/) | 19.4.5 | A pre-fork worker model HTTP server for WSGI. | [MIT](https://github.com/benoitc/gunicorn/blob/master/LICENSE) |
+| [Jinja2](http://jinja.pocoo.org/docs/dev) | 2.8 | A modern and designer-friendly templating language. | [BSD 3-Clause](https://github.com/pallets/jinja/blob/master/LICENSE) |
+| [MarkupSafe](http://www.pocoo.org/projects/markupsafe) | 0.23 | A library for Python that implements a unicode string. | [BSD 3-Clause](https://github.com/pallets/markupsafe/blob/master/LICENSE) |
+| [SQLAlchemy](https://pypi.python.org/pypi/SQLAlchemy) | 1.0.12 | SQL toolkit and Object Relational Mapper. | [MIT](https://github.com/zzzeek/sqlalchemy/blob/master/LICENSE) |
+| [Werkzeug](http://werkzeug.pocoo.org) | 0.11.4 | A WSGI utility library for Python. | [BSD 3-Clause](https://github.com/pallets/werkzeug/blob/master/LICENSE) |
+| [itsdangerous](http://pythonhosted.org/itsdangerous) | 0.24 | Used to send data to untrusted environments. | [BSD 3-Clause](https://github.com/pallets/itsdangerous/blob/master/LICENSE) |
+| [python-engineio](https://github.com/miguelgrinberg/python-engineio) | 0.8.8 | Implementation of the Engine.IO realtime server. | [MIT](https://github.com/miguelgrinberg/python-engineio/blob/master/LICENSE) |
+| [python-socketio](https://github.com/miguelgrinberg/python-socketio) | 1.0 | Implementation of the Socket.IO realtime server. | [MIT](https://github.com/miguelgrinberg/python-socketio/blob/master/LICENSE) |
+| [six](https://pypi.python.org/pypi/six) | 1.10.0 | Python 2 and 3 compatibility library. | [MIT](https://bitbucket.org/gutworth/six/src/2c12cd64ff0c7797bb30b0d466e902f7ecd6e562/LICENSE?at=default) |
+| [wsgiref](https://pypi.python.org/pypi/wsgiref) | 0.1.2 | Provides validation support for WSGI. | [PSF or ZPL](https://pypi.python.org/pypi/wsgiref) |
+| [psycopg2](http://initd.org/psycopg/) |  | Popular PostgreSQL adapter. | [LGPL or ZPL](http://initd.org/psycopg/license/) |
 
 # License information
 
