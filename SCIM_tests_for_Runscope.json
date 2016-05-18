@@ -1,16 +1,15 @@
 {
-  "trigger_url": "https://api.runscope.com/radar/9f3f5fab-b680-495e-8981-da16dece8fd4/trigger", 
+  "trigger_url": "https://api.runscope.com/radar/48be6a04-5d98-44da-b4c6-ac57494ec3d4/trigger", 
   "name": "Okta SCIM 2.0 Tests ", 
   "version": "1.0", 
-  "exported_at": 1461708715, 
+  "exported_at": 1463587943, 
   "steps": [
     {
-      "files": [], 
-      "fragment": "", 
-      "raw_body": "", 
+      "url": "{{SCIM Base URL}}/Users?count=2&startIndex=1", 
       "variables": [], 
       "step_type": "request", 
       "auth": {}, 
+      "method": "GET", 
       "note": "Test API Credentials", 
       "headers": {
         "Accept-Charset": [
@@ -29,11 +28,6 @@
           "OKTA SCIM Integration"
         ]
       }, 
-      "url": "{{SCIM Base URL}}/Users?count=2&startIndex=1", 
-      "scripts": [], 
-      "before_scripts": [], 
-      "data": "", 
-      "method": "GET", 
       "assertions": [
         {
           "comparison": "equal_number", 
@@ -75,15 +69,16 @@
           "value": "600", 
           "source": "response_time"
         }
-      ]
+      ], 
+      "scripts": [], 
+      "before_scripts": []
     }, 
     {
-      "files": [], 
-      "fragment": "", 
-      "raw_body": "", 
+      "url": "{{SCIM Base URL}}/Groups?count=100&startIndex=1", 
       "variables": [], 
       "step_type": "request", 
       "auth": {}, 
+      "method": "GET", 
       "note": "Please wait while we verify your application", 
       "headers": {
         "Accept-Charset": [
@@ -102,11 +97,6 @@
           "OKTA SCIM Integration"
         ]
       }, 
-      "url": "{{SCIM Base URL}}/Groups?count=100&startIndex=1", 
-      "scripts": [], 
-      "before_scripts": [], 
-      "data": "", 
-      "method": "GET", 
       "assertions": [
         {
           "comparison": "equal_number", 
@@ -142,7 +132,9 @@
           "value": "600", 
           "source": "response_time"
         }
-      ]
+      ], 
+      "scripts": [], 
+      "before_scripts": []
     }, 
     {
       "url": "http://api.randomuser.me?nat=us,dk,fr,gb", 
@@ -175,7 +167,7 @@
       ], 
       "step_type": "request", 
       "auth": {}, 
-      "fragment": "", 
+      "method": "GET", 
       "note": "Get a random user", 
       "headers": {
         "Content-Type": [
@@ -198,16 +190,14 @@
         }
       ], 
       "scripts": [], 
-      "before_scripts": [], 
-      "method": "GET"
+      "before_scripts": []
     }, 
     {
-      "files": [], 
-      "fragment": "", 
-      "raw_body": "", 
+      "url": "{{SCIM Base URL}}/Users?count=100&filter=userName eq \"{{randomEmail}}\"&startIndex=1", 
       "variables": [], 
       "step_type": "request", 
       "auth": {}, 
+      "method": "GET", 
       "note": "Make sure random user doesn't exist", 
       "headers": {
         "Accept-Charset": [
@@ -226,11 +216,6 @@
           "OKTA SCIM Integration"
         ]
       }, 
-      "url": "{{SCIM Base URL}}/Users?count=100&filter=userName eq \"{{randomEmail}}\"&startIndex=1", 
-      "scripts": [], 
-      "before_scripts": [], 
-      "data": "", 
-      "method": "GET", 
       "assertions": [
         {
           "comparison": "equal_number", 
@@ -254,14 +239,16 @@
           "value": "600", 
           "source": "response_time"
         }
-      ]
+      ], 
+      "scripts": [], 
+      "before_scripts": []
     }, 
     {
       "url": "{{SCIM Base URL}}/Users/{{userIdThatDoesNotExist}}}}", 
       "variables": [], 
       "step_type": "request", 
       "auth": {}, 
-      "fragment": "", 
+      "method": "GET", 
       "note": "Check error schema", 
       "headers": {
         "Accept-Charset": [
@@ -305,15 +292,12 @@
         }
       ], 
       "scripts": [], 
-      "before_scripts": [], 
-      "method": "GET"
+      "before_scripts": []
     }, 
     {
-      "body": "{\"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:User\"],\"userName\":\"{{randomUsername}}@okta.example.com\",\"name\":{\"givenName\":\"{{randomGivenName}}\",\"familyName\":\"{{randomFamilyName}}\"},\"emails\":[{\"primary\":true,\"value\":\"{{randomEmail}}\",\"type\":\"work\"}],\"displayName\":\"{{randomGivenName}} {{randomFamilyName}}\",\"externalId\":\"{{randomExternalId}}\",\"groups\":[],\"active\":true}", 
-      "files": [], 
+      "body": "{\"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:User\"],\"userName\":\"{{randomUsername}}@okta.example.com\",\"name\":{\"givenName\":\"{{randomGivenName}}\",\"familyName\":\"{{randomFamilyName}}\"},\"emails\":[{\"primary\":true,\"value\":\"{{randomEmail}}\",\"type\":\"work\"}],\"displayName\":\"{{randomGivenName}} {{randomFamilyName}}\",\"externalId\":\"{{userIdThatDoesNotExist}}\",\"groups\":[],\"active\":true}", 
       "form": {}, 
-      "fragment": "", 
-      "raw_body": "{\"schemas\":[\"urn:ietf:params:scim:schemas:core:2.0:User\"],\"userName\":\"tina.erickson@mailinator.com\",\"name\":{\"givenName\":\"Tina\",\"familyName\":\"Erickson\"},\"emails\":[{\"primary\":true,\"value\":\"tina.erickson@mailinator.com\",\"type\":\"work\"}],\"displayName\":\"Tina Erickson\",\"locale\":\"en_US\",\"userType\":\"In SCIM Group\",\"externalId\":\"00u5hwkpq7IC0H7IS0h7\",\"groups\":[],\"password\":\"y25bA4W3\",\"active\":true}", 
+      "url": "{{SCIM Base URL}}/Users", 
       "variables": [
         {
           "source": "response_json", 
@@ -341,34 +325,6 @@
           "OKTA SCIM Integration"
         ]
       }, 
-      "url": "{{SCIM Base URL}}/Users", 
-      "scripts": [], 
-      "before_scripts": [], 
-      "data": {
-        "userName": "tina.erickson@mailinator.com", 
-        "displayName": "Tina Erickson", 
-        "name": {
-          "givenName": "Tina", 
-          "familyName": "Erickson"
-        }, 
-        "locale": "en_US", 
-        "userType": "In SCIM Group", 
-        "externalId": "00u5hwkpq7IC0H7IS0h7", 
-        "groups": [], 
-        "active": true, 
-        "password": "y25bA4W3", 
-        "emails": [
-          {
-            "type": "work", 
-            "primary": true, 
-            "value": "tina.erickson@mailinator.com"
-          }
-        ], 
-        "schemas": [
-          "urn:ietf:params:scim:schemas:core:2.0:User"
-        ]
-      }, 
-      "method": "POST", 
       "assertions": [
         {
           "comparison": "equal_number", 
@@ -416,15 +372,17 @@
           "value": "600", 
           "source": "response_time"
         }
-      ]
+      ], 
+      "scripts": [], 
+      "before_scripts": [], 
+      "method": "POST"
     }, 
     {
-      "files": [], 
-      "fragment": "", 
-      "raw_body": "", 
+      "url": "{{SCIM Base URL}}/Users/{{idUserOne}}", 
       "variables": [], 
       "step_type": "request", 
       "auth": {}, 
+      "method": "GET", 
       "note": "Verify that user was created", 
       "headers": {
         "Accept-Charset": [
@@ -443,11 +401,6 @@
           "OKTA SCIM Integration"
         ]
       }, 
-      "url": "{{SCIM Base URL}}/Users/{{idUserOne}}", 
-      "scripts": [], 
-      "before_scripts": [], 
-      "data": "", 
-      "method": "GET", 
       "assertions": [
         {
           "comparison": "equal_number", 
@@ -477,14 +430,14 @@
           "value": "600", 
           "source": "response_time"
         }
-      ]
+      ], 
+      "scripts": [], 
+      "before_scripts": []
     }, 
     {
       "body": "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],\"Operations\":[{\"op\":\"replace\",\"value\":{\"active\":false}}]}", 
-      "files": [], 
       "form": {}, 
-      "fragment": "", 
-      "raw_body": "{\"schemas\":[\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],\"Operations\":[{\"op\":\"replace\",\"value\":{\"active\":false}}]}", 
+      "url": "{{SCIM Base URL}}/Users/{{idUserOne}}", 
       "variables": [], 
       "step_type": "request", 
       "auth": {}, 
@@ -506,23 +459,6 @@
           "OKTA SCIM Integration"
         ]
       }, 
-      "url": "{{SCIM Base URL}}/Users/{{idUserOne}}", 
-      "scripts": [], 
-      "before_scripts": [], 
-      "data": {
-        "Operations": [
-          {
-            "value": {
-              "active": false
-            }, 
-            "op": "replace"
-          }
-        ], 
-        "schemas": [
-          "urn:ietf:params:scim:api:messages:2.0:PatchOp"
-        ]
-      }, 
-      "method": "PATCH", 
       "assertions": [
         {
           "comparison": "equal_number", 
@@ -540,7 +476,10 @@
           "value": "600", 
           "source": "response_time"
         }
-      ]
+      ], 
+      "scripts": [], 
+      "before_scripts": [], 
+      "method": "PATCH"
     }
   ], 
   "description": "Basic tests to see if your SCIM server will work with Okta"
