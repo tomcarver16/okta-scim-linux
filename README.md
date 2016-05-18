@@ -1,6 +1,14 @@
 # Welcome to the Okta SCIM Beta
 
+> Okta's SCIM implementation is currently in Beta status and provides
+> no guarantees for backwards-compatibility. Okta is free to break
+> this SCIM implementation until it is released.
+
 Thank you for your interest in the Okta SCIM beta.
+
+By implementing support for the SCIM standard, an application in the Okta
+Application Network can be notified when a user is created, updated,
+or removed from their application in Okta.
 
 If you haven't heard of SCIM before, here is a good summary from the
 [Wikipedia article on SCIM](https://en.wikipedia.org/wiki/System_for_Cross-domain_Identity_Management):
@@ -8,10 +16,6 @@ If you haven't heard of SCIM before, here is a good summary from the
 > System for Cross-domain Identity Management (SCIM) is an open
 > standard for automating the exchange of user identity information
 > between identity domains, or IT systems.
-
-If you are a developer for a cloud application, Okta allows you
-to receive user provisioning and profile update message from Okta
-using the open SCIM standard.
 
 # Getting into the Okta SCIM Beta
 
@@ -59,6 +63,139 @@ Below are the main operations in Okta's SCIM user provisioning lifecycle:
 
 In Okta, an application instance is a connector that provides Single Sign-On
 and provisioning functionality with the target application.
+
+# Testing your SCIM server with Runscope
+
+The easiest way for you to develop and verify your SCIM integration
+is to make use of an automated test suite that runs on Runscope.
+
+If you are already familiar with Runscope, then just import the
+[SCIM\_tests\_for\_Runscope.json](https://raw.githubusercontent.com/joelfranusic-okta/okta-scim-beta/master/SCIM_tests_for_Runscope.json) API test and configure the `SCIM Base
+  URL` variable to point at the base URL for your SCIM server, for
+example: `https://example.com/scim/v2`.
+
+If you are not familiar with Runscope, follow the detailed
+instructions below to get started with using Runscope to test your
+SCIM server.
+
+## Set up Runscope
+
+If you do not have a Runscope account already, we suggest starting
+with [Runscope's free plan](https://www.runscope.com/pricing-and-plans). Here is how to get started:
+
+1.  Download the [SCIM\_tests\_for\_Runscope.json](https://raw.githubusercontent.com/joelfranusic-okta/okta-scim-beta/master/SCIM_tests_for_Runscope.json) file from this
+    repository to your local hard drive. (You will use this file to
+    import Okta's SCIM test suite into Runscope.)
+2.  [Sign up for Runscope](//www.runscope.com/signup).
+3.  You may see a tutorial after signing up for Runscope, if so, click
+    "Skip Tutorial".
+4.  You should now see a screen that says "API Tests".
+5.  In the lower left of your screen, click on the "Import Tests"
+    link.
+6.  You should now see a title that starts with "Import Tests into
+    &#x2026;"
+7.  Select "Runscope API Tests" as the format to import
+8.  Click the "Choose File" button and select the
+    [SCIM\_tests\_for\_Runscope.json](https://raw.githubusercontent.com/joelfranusic-okta/okta-scim-beta/master/SCIM_tests_for_Runscope.json) that you saved in Step 1 above.
+9.  Click the blue "Import API Test" button.
+10. After the import completes, click on the "All Tests" link on
+    the left hand side of your screen.
+
+Now that you've imported Okta's SCIM test suite into Runscope, your
+next step will be to customize the test suite for the SCIM
+integration that you are writing.
+
+## Customize the imported Runscope test for your SCIM integration
+
+After importing Okta's SCIM test suite into Runscope, you will need to
+configure the test for your SCIM integration. Here is how to do that:
+
+1.  You should be looking at the "API Tests" screen in Runscope, if
+    not, click on the "Tests" tab on the top of Runscope's user interface.
+2.  You should see a test named "Okta SCIM 2.0 Tests", if not,
+    follow the "Set up Runscope" steps above.
+3.  Move your mouse over the "Okta SCIM 2.0 Tests" test, then select
+    the "Edit" link on the lower left of the test.
+4.  In the "Environment" section of your test, you should see a
+    collapsed "Test Settings" section, click the arrow on the left
+    of "Test Settings" to expand this section.
+5.  "Initial Variables" should be selected, click the "Add Initial
+    Variable" link.
+6.  Name the variable "SCIM Base URL" *(case sensitive, use spaces between words)*
+7.  Set the value of the "SCIM Base URL" to the base URL for your
+    SCIM integration. 
+    
+    For example, if your SCIM integration is hosted on
+    `https://example.com` and uses a prefix of `/scim/v2` then the
+    "SCIM Base URL" for your integration would be:
+    `https://example.com/scim/v2` 
+    
+    If you are developing your SCIM integration in a local
+    development environment, we suggest using the excellent tool
+    [ngrok](https://ngrok.com/) to expose your local development environment to Runscope
+8.  Click the "Save" button at the top of the test.
+
+## Running Okta's SCIM tests against your SCIM server
+
+Now that you have updated your SCIM test in Runscope for your SCIM
+server, it is time to run the test:
+
+1.  If you followed the steps above, you should now be seeing a "Run
+    Now" button at the top of your test.
+2.  Click the "Run Now" button.
+3.  On the left side of your screen, you will see a test show up in
+    the "Recent Test Results" section.
+4.  Click on the top test in the "Recent Test Results" section.
+5.  If the test is still running, you will see live updates of the
+    test in progress. Once the test is complete, you will see the
+    results of your test.
+6.  To see the details of tests, click on the little arrow next to
+    each test to expand the details of a particular test case.
+    
+    Doing this will allow you to see the **Request** and **Response**
+    for each HTTP request that was made.
+7.  Since this test is running in your own Runscope instance, we
+    encourage you to update the tests to better fit your own
+    environment.
+8.  See the "Required SCIM Capabilities" section below for details
+    on what your SCIM server will need to implement to pass all of
+    the tests.
+9.  Keep running this test suite until all the tests pass.
+    Here is an [example of a test suite where all tests pass](https://www.runscope.com/radar/qmovuxkrhtws/f95ac15f-3f22-46c3-8f1a-1001fbf8fb66/history/6a35fabf-5ce5-4e48-a13f-7292b1bd3cc5).
+
+## Sharing test results from Runscope
+
+As you are developing your SCIM server, you will likely want to
+share test results with teammates or with Okta. 
+
+Here is how to share a test result from Runscope with someone else:
+
+1.  Open the test result that you want to share.
+2.  At the top of the test result, Change the "Private / Shareable"
+    toggle from "Private" to "Shareable".
+3.  Copy the URL for the test result, it will look something like
+    this:
+    `https://www.runscope.com/radar/abcdefghijkl/m01nopq2-3456-7r8s-9012-t34567uvw890/history/123ef4gh-i567-89j0-1k2l-3m4n5o678901`
+4.  Share that URL with the person that you want to share the test
+    result with. Here is an example test result from Runscope: 
+    <https://www.runscope.com/radar/qmovuxkrhtws/f95ac15f-3f22-46c3-8f1a-1001fbf8fb66/history/6a35fabf-5ce5-4e48-a13f-7292b1bd3cc5>
+
+## Next steps
+
+Once you have a SCIM server that passes all of the Runscope tests,
+you will want to do the following things:
+
+1.  Consider using Runscope to monitor your SCIM server.
+    
+    Once you have a test suite that passes, you should consider
+    having Runscope run your SCIM test suite on a schedule and alert
+    you if the test suite fails.
+2.  Follow the steps in the "Submitting to Okta" section of this
+    guide.
+    
+    In particular, you will want make sure that the Profile 
+    Attributes and Attribute Mappings in your Okta application show
+    only the attributes and mappings that your SCIM server supports.
 
 # Required SCIM Capabilities
 
@@ -287,12 +424,18 @@ of the [SCIM 2.0 Protocol Specification](https://tools.ietf.org/html/rfc7644).
 Your SCIM 2.0 API must support fetching of users by user id.
 
 Below is how the sample application handles returning a user resource
-by user id:
+by `user_id`:
 
     @app.route("/scim/v2/Users/<user_id>", methods=['GET'])
     def user_get(user_id):
-        user = User.query.filter_by(id=user_id).one()
+        try:
+            user = User.query.filter_by(id=user_id).one()
+        except:
+            return scim_error("User not found", 404)
         return render_json(user)
+
+If we don't find a user, we return a HTTP status 404 ("Not found")
+with SCIM error message.
 
 For more details on the `/Users/{id}` SCIM endpoint, see [section 3.4.1](https://tools.ietf.org/html/rfc7644#section-3.4.1)
 of the [SCIM 2.0 Protocol Specification](https://tools.ietf.org/html/rfc7644).

@@ -144,7 +144,10 @@ def hello():
 
 @app.route("/scim/v2/Users/<user_id>", methods=['GET'])
 def user_get(user_id):
-    user = User.query.filter_by(id=user_id).one()
+    try:
+        user = User.query.filter_by(id=user_id).one()
+    except:
+        return scim_error("User not found", 404)
     return render_json(user)
 
 
