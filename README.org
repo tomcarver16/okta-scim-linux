@@ -91,7 +91,7 @@
 
 ** Set up Runscope
    If you do not have a Runscope account already, we suggest starting
-   with [[https://www.runscope.com/pricing-and-plans][Runscope's free plan]]. Here is how to get started:
+   with [[https://www.runscope.com/okta][Runscope's free plan for Okta]] Here is how to get started:
 
    1. Download the [[https://raw.githubusercontent.com/joelfranusic-okta/okta-scim-beta/master/SCIM_tests_for_Runscope.json][SCIM_tests_for_Runscope.json]] file from this
       repository to your local hard drive. (You will use this file to
@@ -1427,7 +1427,6 @@
    | [psycopg2](http://initd.org/psycopg/) |  | Popular PostgreSQL adapter. | [LGPL or ZPL](http://initd.org/psycopg/license/) |
    #+END_HTML
 
-
 * License information
   #+NAME: license
   #+BEGIN_SRC text :tangle LICENSE.txt :padline no
@@ -1598,3 +1597,6 @@
 ** TODO How do we handle rate limiting
    - If you add the "Retry-After" header, we will retry after that time
    - Otherwise, we will do exponential backoff
+** TODO Explain JSON Patch
+   http://jsonpatch.com/
+   https://tools.ietf.org/html/rfc6902

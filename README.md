@@ -81,7 +81,7 @@ SCIM server.
 ## Set up Runscope
 
 If you do not have a Runscope account already, we suggest starting
-with [Runscope's free plan](https://www.runscope.com/pricing-and-plans). Here is how to get started:
+with [Runscope's free plan for Okta](https://www.runscope.com/okta) Here is how to get started:
 
 1.  Download the [SCIM\_tests\_for\_Runscope.json](https://raw.githubusercontent.com/joelfranusic-okta/okta-scim-beta/master/SCIM_tests_for_Runscope.json) file from this
     repository to your local hard drive. (You will use this file to
