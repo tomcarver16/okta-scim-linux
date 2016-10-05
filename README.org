@@ -1307,25 +1307,25 @@
      2.4]]
 ** Requirements							   :noexport:
    #+tblname: requirements-table
-   |------------------+-----+---------+--------------------------------+---------------------------------------------------+--------------+-----------------|
-   | name             | equality | version | description                    | url                                               | license      | license_url     |
-   |------------------+-----+---------+--------------------------------+---------------------------------------------------+--------------+-----------------|
-   |                  | <3> |         | <30>                           |                                                   |              | <15>            |
-   | Flask            | >=  |  0.10.1 | A web framework built with a small core and easy-to-extend philosophy. | http://flask.pocoo.org                            | BSD 3-Clause | http://flask.pocoo.org/docs/0.10/license/#flask-license |
-   | Flask-SQLAlchemy | >=  |     2.1 | Adds SQLAlchemy support to Flask. | https://github.com/mitsuhiko/flask-sqlalchemy     | BSD 3-Clause | https://github.com/mitsuhiko/flask-sqlalchemy/blob/master/LICENSE |
-   | Flask-SocketIO   | >=  |     2.1 | Socket.IO integration for Flask applications. | https://github.com/miguelgrinberg/Flask-SocketIO  | MIT          | https://github.com/miguelgrinberg/Flask-SocketIO/blob/master/LICENSE |
-   | gunicorn         | >=  |  19.4.5 | A pre-fork worker model HTTP server for WSGI. | http://gunicorn.org/                              | MIT          | https://github.com/benoitc/gunicorn/blob/master/LICENSE |
-   | Jinja2           | >=  |     2.8 | A modern and designer-friendly templating language. | http://jinja.pocoo.org/docs/dev                   | BSD 3-Clause | https://github.com/pallets/jinja/blob/master/LICENSE |
-   | MarkupSafe       | >=  |    0.23 | A library for Python that implements a unicode string. | http://www.pocoo.org/projects/markupsafe          | BSD 3-Clause | https://github.com/pallets/markupsafe/blob/master/LICENSE |
-   | SQLAlchemy       | >=  |  1.0.12 | SQL toolkit and Object Relational Mapper. | https://pypi.python.org/pypi/SQLAlchemy           | MIT          | https://github.com/zzzeek/sqlalchemy/blob/master/LICENSE |
-   | Werkzeug         | >=  |  0.11.4 | A WSGI utility library for Python. | http://werkzeug.pocoo.org                         | BSD 3-Clause | https://github.com/pallets/werkzeug/blob/master/LICENSE |
-   | itsdangerous     | >=  |    0.24 | Used to send data to untrusted environments. | http://pythonhosted.org/itsdangerous              | BSD 3-Clause | https://github.com/pallets/itsdangerous/blob/master/LICENSE |
-   | python-engineio  | >=  |   0.8.8 | Implementation of the Engine.IO realtime server. | https://github.com/miguelgrinberg/python-engineio | MIT          | https://github.com/miguelgrinberg/python-engineio/blob/master/LICENSE |
-   | python-socketio  | >=  |     1.0 | Implementation of the Socket.IO realtime server. | https://github.com/miguelgrinberg/python-socketio | MIT          | https://github.com/miguelgrinberg/python-socketio/blob/master/LICENSE |
-   | six              | >=  |  1.10.0 | Python 2 and 3 compatibility library. | https://pypi.python.org/pypi/six                  | MIT          | https://bitbucket.org/gutworth/six/src/2c12cd64ff0c7797bb30b0d466e902f7ecd6e562/LICENSE?at=default |
-   | wsgiref          | >=  |   0.1.2 | Provides validation support for WSGI. | https://pypi.python.org/pypi/wsgiref              | PSF or ZPL   | https://pypi.python.org/pypi/wsgiref |
-   | psycopg2         |     |         | Popular PostgreSQL adapter.    | http://initd.org/psycopg/                         | LGPL or ZPL  | http://initd.org/psycopg/license/ |
-   |------------------+-----+---------+--------------------------------+---------------------------------------------------+--------------+-----------------|
+   |------------------+-----+---------+--------------------------------+---------------------------------------------------+---------------+-----------------|
+   | name             | equality | version | description                    | url                                               | license       | license_url     |
+   |------------------+-----+---------+--------------------------------+---------------------------------------------------+---------------+-----------------|
+   |                  | <3> |         | <30>                           |                                                   |               | <15>            |
+   | Flask            | >=  |  0.10.1 | A web framework built with a small core and easy-to-extend philosophy. | http://flask.pocoo.org                            | BSD 3-Clause  | http://flask.pocoo.org/docs/0.10/license/#flask-license |
+   | Flask-SQLAlchemy | >=  |     2.1 | Adds SQLAlchemy support to Flask. | https://github.com/mitsuhiko/flask-sqlalchemy     | BSD 3-Clause  | https://github.com/mitsuhiko/flask-sqlalchemy/blob/master/LICENSE |
+   | Flask-SocketIO   | >=  |     2.1 | Socket.IO integration for Flask applications. | https://github.com/miguelgrinberg/Flask-SocketIO  | MIT           | https://github.com/miguelgrinberg/Flask-SocketIO/blob/master/LICENSE |
+   | gunicorn         | >=  |  19.4.5 | A pre-fork worker model HTTP server for WSGI. | http://gunicorn.org/                              | MIT           | https://github.com/benoitc/gunicorn/blob/master/LICENSE |
+   | Jinja2           | >=  |     2.8 | A modern and designer-friendly templating language. | http://jinja.pocoo.org/docs/dev                   | BSD 3-Clause  | https://github.com/pallets/jinja/blob/master/LICENSE |
+   | MarkupSafe       | >=  |    0.23 | A library for Python that implements a unicode string. | http://www.pocoo.org/projects/markupsafe          | BSD 3-Clause  | https://github.com/pallets/markupsafe/blob/master/LICENSE |
+   | SQLAlchemy       | >=  |  1.0.12 | SQL toolkit and Object Relational Mapper. | https://pypi.python.org/pypi/SQLAlchemy           | MIT           | https://github.com/zzzeek/sqlalchemy/blob/master/LICENSE |
+   | Werkzeug         | >=  |  0.11.4 | A WSGI utility library for Python. | http://werkzeug.pocoo.org                         | BSD 3-Clause  | https://github.com/pallets/werkzeug/blob/master/LICENSE |
+   | itsdangerous     | >=  |    0.24 | Used to send data to untrusted environments. | http://pythonhosted.org/itsdangerous              | BSD 3-Clause  | https://github.com/pallets/itsdangerous/blob/master/LICENSE |
+   | python-engineio  | >=  |   0.8.8 | Implementation of the Engine.IO realtime server. | https://github.com/miguelgrinberg/python-engineio | MIT           | https://github.com/miguelgrinberg/python-engineio/blob/master/LICENSE |
+   | python-socketio  | >=  |     1.0 | Implementation of the Socket.IO realtime server. | https://github.com/miguelgrinberg/python-socketio | MIT           | https://github.com/miguelgrinberg/python-socketio/blob/master/LICENSE |
+   | six              | >=  |  1.10.0 | Python 2 and 3 compatibility library. | https://pypi.python.org/pypi/six                  | MIT           | https://bitbucket.org/gutworth/six/src/2c12cd64ff0c7797bb30b0d466e902f7ecd6e562/LICENSE?at=default |
+   | wsgiref          | >=  |   0.1.2 | Provides validation support for WSGI. | https://pypi.python.org/pypi/wsgiref              | PSF or ZPL    | https://pypi.python.org/pypi/wsgiref |
+   | psycopg2         |     |         | Popular PostgreSQL adapter.    | http://initd.org/psycopg/                         | LGPL 3 or ZPL | http://initd.org/psycopg/license/ |
+   |------------------+-----+---------+--------------------------------+---------------------------------------------------+---------------+-----------------|
    #+TBLFM: 
 
    (This table is used to generate the =requirements.txt= file for this project)
@@ -1374,7 +1374,7 @@
      return output
    #+END_SRC
 
-   #+RESULTS[097575f40a6db9001dc29cca330d31d04551bfbe]:
+   #+RESULTS[68d7242bd88520f82331a2d2498583a1a1f1d862]:
    #+BEGIN_SRC python :tangle requirements.txt :noweb yes :exports none :padline no
    Flask>=0.10.1
    Flask-SQLAlchemy>=2.1
@@ -1392,6 +1392,8 @@
    psycopg2
    #+END_SRC
 
+   #+RESULTS:
+
 ** Dependencies 
    Here is a detailed list of the dependencies that this example SCIM
    server depends on, and what each dependency does.
@@ -1407,7 +1409,7 @@
      return output
    #+END_SRC
 
-   #+RESULTS[a0ada12a4fdb48ac64b0edf177e1752af1c0d27b]:
+   #+RESULTS[c2870a7691b8cbcaf2849563db3ab81dd543de51]:
    #+BEGIN_HTML
    | Name | Version | Description | License |
    | ---- | --- | --- | --- |
@@ -1424,7 +1426,7 @@
    | [python-socketio](https://github.com/miguelgrinberg/python-socketio) | 1.0 | Implementation of the Socket.IO realtime server. | [MIT](https://github.com/miguelgrinberg/python-socketio/blob/master/LICENSE) |
    | [six](https://pypi.python.org/pypi/six) | 1.10.0 | Python 2 and 3 compatibility library. | [MIT](https://bitbucket.org/gutworth/six/src/2c12cd64ff0c7797bb30b0d466e902f7ecd6e562/LICENSE?at=default) |
    | [wsgiref](https://pypi.python.org/pypi/wsgiref) | 0.1.2 | Provides validation support for WSGI. | [PSF or ZPL](https://pypi.python.org/pypi/wsgiref) |
-   | [psycopg2](http://initd.org/psycopg/) |  | Popular PostgreSQL adapter. | [LGPL or ZPL](http://initd.org/psycopg/license/) |
+   | [psycopg2](http://initd.org/psycopg/) |  | Popular PostgreSQL adapter. | [LGPL 3 or ZPL](http://initd.org/psycopg/license/) |
    #+END_HTML
 
 * License information
@@ -1432,17 +1434,24 @@
   #+BEGIN_SRC text :tangle LICENSE.txt :padline no
     Copyright © 2016, Okta, Inc.
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
 
-        http://www.apache.org/licenses/LICENSE-2.0
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+    NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+    LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   #+END_SRC
 
 * Files 							   :noexport:
