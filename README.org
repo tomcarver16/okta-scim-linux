@@ -1,13 +1,13 @@
 # This is a file written in Emacs and authored using org-mode (http://orgmode.org/)
 # The "README.md" file is generated from this file by running the
 # "M-x org-md-export-to-markdown" command from inside of Emacs.
-# 
+#
 # The rest of the files are generated from this file by running the
 # "M-x org-babel-tangle" command from inside of Emacs.
-# 
+#
 # The options below control the behavior of org-md-export-to-markdown:
 #
-# Don't render a Table of Contents 
+# Don't render a Table of Contents
 #+OPTIONS: toc:nil
 # Don't render section numbers
 #+OPTIONS: num:nil
@@ -132,12 +132,12 @@
       Variable" link.
    6. Name the variable "SCIM Base URL" /(case sensitive, use spaces between words)/
    7. Set the value of the "SCIM Base URL" to the base URL for your
-      SCIM integration. 
+      SCIM integration.
 
       For example, if your SCIM integration is hosted on
       =https://example.com= and uses a prefix of =/scim/v2= then the
       "SCIM Base URL" for your integration would be:
-      =https://example.com/scim/v2= 
+      =https://example.com/scim/v2=
 
       If you are developing your SCIM integration in a local
       development environment, we suggest using the excellent tool
@@ -167,13 +167,13 @@
       environment.
    8. See the "Required SCIM Capabilities" section below for details
       on what your SCIM server will need to implement to pass all of
-      the tests. 
+      the tests.
    9. Keep running this test suite until all the tests pass.
       Here is an [[https://www.runscope.com/radar/qmovuxkrhtws/f95ac15f-3f22-46c3-8f1a-1001fbf8fb66/history/6a35fabf-5ce5-4e48-a13f-7292b1bd3cc5][example of a test suite where all tests pass]].
 
 ** Sharing test results from Runscope
    As you are developing your SCIM server, you will likely want to
-   share test results with teammates or with Okta. 
+   share test results with teammates or with Okta.
 
    Here is how to share a test result from Runscope with someone else:
    1. Open the test result that you want to share.
@@ -183,7 +183,7 @@
       this:
       =https://www.runscope.com/radar/abcdefghijkl/m01nopq2-3456-7r8s-9012-t34567uvw890/history/123ef4gh-i567-89j0-1k2l-3m4n5o678901=
    4. Share that URL with the person that you want to share the test
-      result with. Here is an example test result from Runscope: 
+      result with. Here is an example test result from Runscope:
       https://www.runscope.com/radar/qmovuxkrhtws/f95ac15f-3f22-46c3-8f1a-1001fbf8fb66/history/6a35fabf-5ce5-4e48-a13f-7292b1bd3cc5
 
 ** Next steps
@@ -198,7 +198,7 @@
    2. Follow the steps in the "Submitting to Okta" section of this
       guide.
 
-      In particular, you will want make sure that the Profile 
+      In particular, you will want make sure that the Profile
       Attributes and Attribute Mappings in your Okta application show
       only the attributes and mappings that your SCIM server supports.
 
@@ -334,8 +334,8 @@
    with any additional attributes that your application supports.  If your
    application supports entitlements, your SCIM 2.0 API should allow
    configuration of those as well.
-   
-   An HTTP POST to the =/Users= endpoint must return an immutable or 
+
+   An HTTP POST to the =/Users= endpoint must return an immutable or
    system ID of the user (=id=) must be returned to Okta.
 
    Okta will call this SCIM API endpoint under the following circumstances:
@@ -397,62 +397,62 @@
    {
      "Resources": [
        {
-	 "active": true, 
-	 "id": "3c1b6a6c-f5a4-41c5-9745-d530cc82d4e0", 
+	 "active": true,
+	 "id": "3c1b6a6c-f5a4-41c5-9745-d530cc82d4e0",
 	 "meta": {
-	   "location": "http://joel-scim.herokuapp.com/scim/v2/Users/3c1b6a6c-f5a4-41c5-9745-d530cc82d4e0", 
+	   "location": "http://joel-scim.herokuapp.com/scim/v2/Users/3c1b6a6c-f5a4-41c5-9745-d530cc82d4e0",
 	   "resourceType": "User"
-	 }, 
+	 },
 	 "name": {
-	   "familyName": "Gregerson", 
-	   "givenName": "Greg", 
+	   "familyName": "Gregerson",
+	   "givenName": "Greg",
 	   "middleName": null
-	 }, 
+	 },
 	 "schemas": [
 	   "urn:ietf:params:scim:schemas:core:2.0:User"
-	 ], 
+	 ],
 	 "userName": "greg2@example.com"
-       }, 
+       },
        {
-	 "active": true, 
-	 "id": "661bb8b0-cc17-418c-9059-999b13b19fca", 
+	 "active": true,
+	 "id": "661bb8b0-cc17-418c-9059-999b13b19fca",
 	 "meta": {
-	   "location": "http://joel-scim.herokuapp.com/scim/v2/Users/661bb8b0-cc17-418c-9059-999b13b19fca", 
+	   "location": "http://joel-scim.herokuapp.com/scim/v2/Users/661bb8b0-cc17-418c-9059-999b13b19fca",
 	   "resourceType": "User"
-	 }, 
+	 },
 	 "name": {
-	   "familyName": "Gregerson", 
-	   "givenName": "Greg", 
+	   "familyName": "Gregerson",
+	   "givenName": "Greg",
 	   "middleName": null
-	 }, 
+	 },
 	 "schemas": [
 	   "urn:ietf:params:scim:schemas:core:2.0:User"
-	 ], 
+	 ],
 	 "userName": "greg@example.com"
-       }, 
+       },
        {
-	 "active": true, 
-	 "id": "96494b99-b9a3-426f-8f92-d8d7357e6993", 
+	 "active": true,
+	 "id": "96494b99-b9a3-426f-8f92-d8d7357e6993",
 	 "meta": {
-	   "location": "http://joel-scim.herokuapp.com/scim/v2/Users/96494b99-b9a3-426f-8f92-d8d7357e6993", 
+	   "location": "http://joel-scim.herokuapp.com/scim/v2/Users/96494b99-b9a3-426f-8f92-d8d7357e6993",
 	   "resourceType": "User"
-	 }, 
+	 },
 	 "name": {
-	   "familyName": "Gregerson", 
-	   "givenName": "Greg", 
+	   "familyName": "Gregerson",
+	   "givenName": "Greg",
 	   "middleName": null
-	 }, 
+	 },
 	 "schemas": [
 	   "urn:ietf:params:scim:schemas:core:2.0:User"
-	 ], 
+	 ],
 	 "userName": "greg3@example.com"
        }
-     ], 
-     "itemsPerPage": 100, 
+     ],
+     "itemsPerPage": 100,
      "schemas": [
        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
-     ], 
-     "startIndex": 0, 
+     ],
+     "startIndex": 0,
      "totalResults": 3
    }
    #+END_SRC
@@ -530,12 +530,12 @@
    #+BEGIN_SRC python
      @app.route("/scim/v2/Users/<user_id>", methods=['PUT'])
      def users_put(user_id):
-	 user_resource = request.get_json(force=True)
-	 user = User.query.filter_by(id=user_id).one()
-	 user.update(user_resource)
-	 db.session.add(user)
-	 db.session.commit()
-	 return render_json(user)
+         user_resource = request.get_json(force=True)
+         user = User.query.filter_by(id=user_id).one()
+         user.update(user_resource)
+         db.session.add(user)
+         db.session.commit()
+         return render_json(user)
    #+END_SRC
 
    For more details on updates to the =/Users/{id}= SCIM endpoint, see [[https://tools.ietf.org/html/rfc7644#section-3.5.1][section 3.5.1]]
@@ -556,7 +556,7 @@
    application. Examples of when this happen are as follows:
    - A user is manually unassigned from your application.
    - A user is removed from a group which is assigned to your application.
-   - When a user is deactivated in Okta, either manually or via 
+   - When a user is deactivated in Okta, either manually or via
      by an external profile master like Active Directory or a Human
      Resource Management Software system.
 
@@ -565,30 +565,30 @@
    #+BEGIN_SRC python
      @app.route("/scim/v2/Users/<user_id>", methods=['PATCH'])
      def users_patch(user_id):
-	 patch_resource = request.get_json(force=True)
-	 for attribute in ['schemas', 'Operations']:
-	     if attribute not in patch_resource:
-		 message = "Payload must contain '{}' attribute.".format(attribute)
-		 return message, 400
-	 schema_patchop = 'urn:ietf:params:scim:api:messages:2.0:PatchOp'
-	 if schema_patchop not in patch_resource['schemas']:
-	     return "The 'schemas' type in this request is not supported.", 501
-	 user = User.query.filter_by(id=user_id).one()
-	 for operation in patch_resource['Operations']:
-	     if 'op' not in operation and operation['op'] != 'replace':
-		 continue
-	     value = operation['value']
-	     for key in value.keys():
-		 setattr(user, key, value[key])
-	 db.session.add(user)
-	 db.session.commit()
-	 return render_json(user)
+         patch_resource = request.get_json(force=True)
+         for attribute in ['schemas', 'Operations']:
+             if attribute not in patch_resource:
+                 message = "Payload must contain '{}' attribute.".format(attribute)
+                 return message, 400
+         schema_patchop = 'urn:ietf:params:scim:api:messages:2.0:PatchOp'
+         if schema_patchop not in patch_resource['schemas']:
+             return "The 'schemas' type in this request is not supported.", 501
+         user = User.query.filter_by(id=user_id).one()
+         for operation in patch_resource['Operations']:
+             if 'op' not in operation and operation['op'] != 'replace':
+                 continue
+             value = operation['value']
+             for key in value.keys():
+                 setattr(user, key, value[key])
+         db.session.add(user)
+         db.session.commit()
+         return render_json(user)
    #+END_SRC
    For more details on user attribute updates to =/Users/{id}= SCIM endpoint, see [[https://tools.ietf.org/html/rfc7644#section-3.5.2][section 3.5.2]]
    of the [[https://tools.ietf.org/html/rfc7644][SCIM 2.0 Protocol Specification]].
 ** Filtering on =id=, =userName=, and =emails=
    Being able to filter results by the =id=, =userName=, or =emails=
-   attributes is a critical part of working with Okta. 
+   attributes is a critical part of working with Okta.
 
    Your SCIM API must be able to filter users by =userName= and should
    also support filtering by =id= and =emails=. Filtering support
@@ -611,7 +611,7 @@
    #+BEGIN_QUOTE
    emails eq "jane@example.com"
    #+END_QUOTE
-   
+
    At the moment, Okta only supports the =eq= filter operator. However, the
    [[https://tools.ietf.org/html/rfc7644#section-3.4.2.2][filtering capabilities]] described in the SCIM 2.0 Protocol Specification are
    much more complicated.
@@ -651,7 +651,7 @@
     Filtering by =emails= will likely need a different kind of search
     on a real system, since emails will likely be stored in their own
     table. For example:
-    
+
     |---------+------------------|
     | user_id | email            |
     |---------+------------------|
@@ -702,7 +702,7 @@
       uniqueness, it is assumed that the value's uniqueness is
       controlled by the client setting the value.
    #+END_QUOTE
-   
+
    When adding support for =externalId= filtering to your application,
    we suggest that you use OAuth2.0 for authentication and use the
    OAuth2.0 =client_id= to scope the =externalId= to the provisioning
@@ -721,28 +721,28 @@
      {
        "Resources": [
          {
-           "active": false, 
-           "id": 1, 
+           "active": false,
+           "id": 1,
            "meta": {
-             "location": "http://scim-server.example.com/scim/v2/Users/1", 
+             "location": "http://scim-server.example.com/scim/v2/Users/1",
              "resourceType": "User"
-           }, 
+           },
            "name": {
-             "familyName": "Doe", 
-             "givenName": "Jane", 
+             "familyName": "Doe",
+             "givenName": "Jane",
              "middleName": null
-           }, 
+           },
            "schemas": [
              "urn:ietf:params:scim:schemas:core:2.0:User"
-           ], 
+           ],
            "userName": "jane.doe@example.com"
          }
-       ], 
-       "itemsPerPage": 1, 
+       ],
+       "itemsPerPage": 1,
        "schemas": [
          "urn:ietf:params:scim:api:messages:2.0:ListResponse"
-       ], 
-       "startIndex": 0, 
+       ],
+       "startIndex": 0,
        "totalResults": 1
      }
    #+END_EXAMPLE
@@ -768,7 +768,7 @@
      start_index -= 1
      query = query.offset(start_index).limit(count)
    #+END_SRC
-   
+
    Note: This code subtracts "1" from the
    =startIndex=, because =startIndex= is [[https://tools.ietf.org/html/rfc7644#section-3.4.2][1-indexed]] and
    the OFFSET statement is [[http://www.postgresql.org/docs/8.0/static/queries-limit.html][0-indexed]].
@@ -799,7 +799,7 @@
     The ability to query users with a POST request is described in
     [[https://tools.ietf.org/html/rfc7644#section-3.4.3][section 3.4.3]] of the [[https://tools.ietf.org/html/rfc7644][SCIM 2.0 Protocol Specification]].
 
-    Querying using POST is sometimes useful if your query contains 
+    Querying using POST is sometimes useful if your query contains
     [[https://en.wikipedia.org/wiki/Personally_identifiable_information][personally identifiable information]] that would be exposed in
     system logs if used query parameters with a GET request.
 
@@ -919,7 +919,7 @@
 	 1. The attribute *must* be set for your provisioning
             integration to work.
 	 2. An Okta administrator must populate a value for
-            this attribute. 
+            this attribute.
        - Scope
      - If the settings for any of your supported user attributes are
        incorrect, contact Okta and request the correction for your
@@ -956,7 +956,7 @@
 
 * Appendix: Details on the example SCIM server
   Included in this git repository is an example SCIM server written in
-  Python. 
+  Python.
 
   This example SCIM server demonstrates how to implement a basic SCIM
   server that can create, read, update, and deactivate Okta users.
@@ -988,7 +988,7 @@
    4. Then, install the dependencies for the sample SCIM server using
       Python's [[https://en.wikipedia.org/wiki/Pip_%28package_manager%29]["pip" package manager]]:
       #+BEGIN_EXAMPLE
-      $ pip install -r requirements.txt 
+      $ pip install -r requirements.txt
       #+END_EXAMPLE
    5. Finally, start the example SCIM server using this command:
       #+BEGIN_EXAMPLE
@@ -1031,6 +1031,7 @@
    #+BEGIN_SRC python
      app = Flask(__name__)
      database_url = os.getenv('DATABASE_URL', 'sqlite:///test-users.db')
+     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
      app.config['SQLALCHEMY_DATABASE_URI'] = database_url
      db = SQLAlchemy(app)
      socketio = SocketIO(app)
@@ -1089,7 +1090,7 @@
              }
              return rv
    #+END_SRC
-   
+
 ** Support for SCIM Query resources
 
    We also define a =ListResponse= class, which is used to return an
@@ -1175,7 +1176,7 @@
      "disconnect" messages.
 
    The code described above is as follows:
-   
+
    #+NAME: socket-io-support
    #+BEGIN_SRC python
      def send_to_browser(obj):
@@ -1251,11 +1252,11 @@
              User.query.one()
          except:
              db.create_all()
-         app.debug = True
+         # app.debug = True
          socketio.run(app)
    #+END_SRC
 ** Frequently Asked Questions (FAQ)
-   * What are the differences between SCIM 1.1 and 2.0?    
+   * What are the differences between SCIM 1.1 and 2.0?
      #+BEGIN_HTML
        | Section | SCIM 1.1 | SCIM 2.0 | Notes |
        | --- | --- | --- | --- |
@@ -1264,7 +1265,7 @@
        | Patch Protocol | [Section 3.3.2](http://www.simplecloud.info/specs/draft-scim-api-01.html#edit-resource-with-patch) | [Section 3.5.2: Uses JSON Patch](https://tools.ietf.org/html/rfc7644#section-3.5.2) | |
        | Error Response Schema | [Section 3.9](http://www.simplecloud.info/specs/draft-scim-api-01.html#anchor6) | [Section 3.12](https://tools.ietf.org/html/rfc7644#section-3.12) | |
        | Reference Type | N/A | Supports ref type pointing to the full url of another SCIM Resource | |
-       | Query by POST /search | N/A | [Section 3.4.3](https://tools.ietf.org/html/rfc7644#section-3.4.3) | |  
+       | Query by POST /search | N/A | [Section 3.4.3](https://tools.ietf.org/html/rfc7644#section-3.4.3) | |
      #+END_HTML
    * What if the SCIM 1.1 spec isn't clear on a specific use case or
      scenario?
@@ -1285,13 +1286,13 @@
      canonicalize the value returned (e.g., by returning a value for the
      sub-attribute "type", such as "home" or "work") when appropriate
      (e.g., for email addresses and URLs).
-     
+
      Service providers MAY return element objects with the same "value"
      sub-attribute more than once with a different "type" sub-attribute
      (e.g., the same email address may be used for work and home) but
      SHOULD NOT return the same (type, value) combination more than once
      per attribute, as this complicates processing by the client.
-     
+
      When defining schema for multi-valued attributes, it is considered a
      good practice to provide a type attribute that MAY be used for the
      purpose of canonicalization of values.  In the schema definition for
@@ -1325,8 +1326,9 @@
    | six              | >=  |  1.10.0 | Python 2 and 3 compatibility library. | https://pypi.python.org/pypi/six                  | MIT           | https://bitbucket.org/gutworth/six/src/2c12cd64ff0c7797bb30b0d466e902f7ecd6e562/LICENSE?at=default |
    | wsgiref          | >=  |   0.1.2 | Provides validation support for WSGI. | https://pypi.python.org/pypi/wsgiref              | PSF or ZPL    | https://pypi.python.org/pypi/wsgiref |
    | psycopg2         |     |         | Popular PostgreSQL adapter.    | http://initd.org/psycopg/                         | LGPL 3 or ZPL | http://initd.org/psycopg/license/ |
+   | eventlet         |     |         | Concurrent networking library. | http://eventlet.net/                              | MIT           | https://github.com/eventlet/eventlet/blob/master/LICENSE |
    |------------------+-----+---------+--------------------------------+---------------------------------------------------+---------------+-----------------|
-   #+TBLFM: 
+   #+TBLFM:
 
    (This table is used to generate the =requirements.txt= file for this project)
 *** How to turn the table above into a requirements.txt file	   :noexport:
@@ -1354,9 +1356,9 @@
 
      return data
    #+END_SRC
-   #+RESULTS[c565cbe6a300ca603bba740251408276242cea6e]: table-to-dict
+   #+RESULTS[bd68cfd26bf65a489be69fa0780f264c028b3c11]: table-to-dict
    #+BEGIN_SRC python
-   [{'equality': '>=', 'name': 'Flask', 'license': '', 'url': '[[http://flask.pocoo.org][http://flask.pocoo.org]]', 'version': '0.10.1', 'description': 'A web framework built with a small core and easy-to-extend philosophy.'}, {'equality': '>=', 'name': 'Flask-SQLAlchemy', 'license': '', 'url': 'https://github.com/mitsuhiko/flask-sqlalchemy', 'version': 2.1, 'description': 'Adds SQLAlchemy support to Flask.'}, {'equality': '>=', 'name': 'Flask-SocketIO', 'license': '', 'url': 'https://github.com/miguelgrinberg/Flask-SocketIO', 'version': 2.1, 'description': 'Socket.IO integration for Flask applications.'}, {'equality': '>=', 'name': 'gunicorn', 'license': '', 'url': 'https://en.wikipedia.org/wiki/Gunicorn_%28HTTP_server%29', 'version': '19.4.5', 'description': 'A pre-fork worker model HTTP server for WSGI.'}, {'equality': '>=', 'name': 'Jinja2', 'license': '', 'url': 'http://jinja.pocoo.org/docs/dev', 'version': 2.8, 'description': 'A modern and designer-friendly templating language.'}, {'equality': '>=', 'name': 'MarkupSafe', 'license': '', 'url': 'http://www.pocoo.org/projects/markupsafe', 'version': 0.23, 'description': 'A library for Python that implements a unicode string.'}, {'equality': '>=', 'name': 'SQLAlchemy', 'license': '', 'url': 'https://pypi.python.org/pypi/SQLAlchemy', 'version': '1.0.12', 'description': 'SQL toolkit and Object Relational Mapper.'}, {'equality': '>=', 'name': 'Werkzeug', 'license': '', 'url': 'http://werkzeug.pocoo.org', 'version': '0.11.4', 'description': 'A WSGI utility library for Python.'}, {'equality': '>=', 'name': 'itsdangerous', 'license': '', 'url': 'http://pythonhosted.org/itsdangerous', 'version': 0.24, 'description': 'Used to send data to untrusted environments.'}, {'equality': '>=', 'name': 'python-engineio', 'license': '', 'url': 'https://github.com/miguelgrinberg/python-engineio', 'version': '0.8.8', 'description': 'Implementation of the Engine.IO realtime server.'}, {'equality': '>=', 'name': 'python-socketio', 'license': '', 'url': 'https://github.com/miguelgrinberg/python-socketio', 'version': 1.0, 'description': 'Implementation of the Socket.IO realtime server.'}, {'equality': '>=', 'name': 'six', 'license': '', 'url': 'https://pypi.python.org/pypi/six', 'version': '1.10.0', 'description': 'Python 2 and 3 compatibility library.'}, {'equality': '>=', 'name': 'wsgiref', 'license': '', 'url': 'https://pypi.python.org/pypi/wsgiref', 'version': '0.1.2', 'description': 'Provides validation support for WSGI.'}, {'equality': '', 'name': 'psycopg2', 'license': '', 'url': 'http://initd.org/psycopg/', 'version': '', 'description': 'Popular PostgreSQL adapter.'}]
+   [{'equality': '<3>', 'name': '', 'license': '', 'url': '', 'version': '', 'license_url': '<15>', 'description': '<30>'}, {'equality': '>=', 'name': 'Flask', 'license': 'BSD 3-Clause', 'url': 'http://flask.pocoo.org', 'version': '0.10.1', 'license_url': 'http://flask.pocoo.org/docs/0.10/license/#flask-license', 'description': 'A web framework built with a small core and easy-to-extend philosophy.'}, {'equality': '>=', 'name': 'Flask-SQLAlchemy', 'license': 'BSD 3-Clause', 'url': 'https://github.com/mitsuhiko/flask-sqlalchemy', 'version': 2.1, 'license_url': 'https://github.com/mitsuhiko/flask-sqlalchemy/blob/master/LICENSE', 'description': 'Adds SQLAlchemy support to Flask.'}, {'equality': '>=', 'name': 'Flask-SocketIO', 'license': 'MIT', 'url': 'https://github.com/miguelgrinberg/Flask-SocketIO', 'version': 2.1, 'license_url': 'https://github.com/miguelgrinberg/Flask-SocketIO/blob/master/LICENSE', 'description': 'Socket.IO integration for Flask applications.'}, {'equality': '>=', 'name': 'gunicorn', 'license': 'MIT', 'url': 'http://gunicorn.org/', 'version': '19.4.5', 'license_url': 'https://github.com/benoitc/gunicorn/blob/master/LICENSE', 'description': 'A pre-fork worker model HTTP server for WSGI.'}, {'equality': '>=', 'name': 'Jinja2', 'license': 'BSD 3-Clause', 'url': 'http://jinja.pocoo.org/docs/dev', 'version': 2.8, 'license_url': 'https://github.com/pallets/jinja/blob/master/LICENSE', 'description': 'A modern and designer-friendly templating language.'}, {'equality': '>=', 'name': 'MarkupSafe', 'license': 'BSD 3-Clause', 'url': 'http://www.pocoo.org/projects/markupsafe', 'version': 0.23, 'license_url': 'https://github.com/pallets/markupsafe/blob/master/LICENSE', 'description': 'A library for Python that implements a unicode string.'}, {'equality': '>=', 'name': 'SQLAlchemy', 'license': 'MIT', 'url': 'https://pypi.python.org/pypi/SQLAlchemy', 'version': '1.0.12', 'license_url': 'https://github.com/zzzeek/sqlalchemy/blob/master/LICENSE', 'description': 'SQL toolkit and Object Relational Mapper.'}, {'equality': '>=', 'name': 'Werkzeug', 'license': 'BSD 3-Clause', 'url': 'http://werkzeug.pocoo.org', 'version': '0.11.4', 'license_url': 'https://github.com/pallets/werkzeug/blob/master/LICENSE', 'description': 'A WSGI utility library for Python.'}, {'equality': '>=', 'name': 'itsdangerous', 'license': 'BSD 3-Clause', 'url': 'http://pythonhosted.org/itsdangerous', 'version': 0.24, 'license_url': 'https://github.com/pallets/itsdangerous/blob/master/LICENSE', 'description': 'Used to send data to untrusted environments.'}, {'equality': '>=', 'name': 'python-engineio', 'license': 'MIT', 'url': 'https://github.com/miguelgrinberg/python-engineio', 'version': '0.8.8', 'license_url': 'https://github.com/miguelgrinberg/python-engineio/blob/master/LICENSE', 'description': 'Implementation of the Engine.IO realtime server.'}, {'equality': '>=', 'name': 'python-socketio', 'license': 'MIT', 'url': 'https://github.com/miguelgrinberg/python-socketio', 'version': 1.0, 'license_url': 'https://github.com/miguelgrinberg/python-socketio/blob/master/LICENSE', 'description': 'Implementation of the Socket.IO realtime server.'}, {'equality': '>=', 'name': 'six', 'license': 'MIT', 'url': 'https://pypi.python.org/pypi/six', 'version': '1.10.0', 'license_url': 'https://bitbucket.org/gutworth/six/src/2c12cd64ff0c7797bb30b0d466e902f7ecd6e562/LICENSE?at=default', 'description': 'Python 2 and 3 compatibility library.'}, {'equality': '>=', 'name': 'wsgiref', 'license': 'PSF or ZPL', 'url': 'https://pypi.python.org/pypi/wsgiref', 'version': '0.1.2', 'license_url': 'https://pypi.python.org/pypi/wsgiref', 'description': 'Provides validation support for WSGI.'}, {'equality': '', 'name': 'psycopg2', 'license': 'LGPL 3 or ZPL', 'url': 'http://initd.org/psycopg/', 'version': '', 'license_url': 'http://initd.org/psycopg/license/', 'description': 'Popular PostgreSQL adapter.'}, {'equality': '', 'name': 'eventlet', 'license': 'MIT', 'url': 'http://eventlet.net/', 'version': '', 'license_url': 'https://github.com/eventlet/eventlet/blob/master/LICENSE', 'description': 'Concurrent networking library.'}]
    #+END_SRC
 *** Creating the =requirements.txt= file			   :noexport:
    This code takes the requirements table above and turns it into a
@@ -1370,11 +1372,11 @@
      for package in data:
          if not package['name']:
              continue
-	 output += "{name}{equality}{version}\n".format(**package)
+         output += "{name}{equality}{version}\n".format(**package)
      return output
    #+END_SRC
 
-   #+RESULTS[68d7242bd88520f82331a2d2498583a1a1f1d862]:
+   #+RESULTS[4b083b0b6ddd2f282e06b10c655e956ef3dadbe0]:
    #+BEGIN_SRC python :tangle requirements.txt :noweb yes :exports none :padline no
    Flask>=0.10.1
    Flask-SQLAlchemy>=2.1
@@ -1390,11 +1392,12 @@
    six>=1.10.0
    wsgiref>=0.1.2
    psycopg2
+   eventlet
    #+END_SRC
 
    #+RESULTS:
 
-** Dependencies 
+** Dependencies
    Here is a detailed list of the dependencies that this example SCIM
    server depends on, and what each dependency does.
 
@@ -1432,7 +1435,7 @@
 * License information
   #+NAME: license
   #+BEGIN_SRC text :tangle LICENSE.txt :padline no
-    Copyright © 2016, Okta, Inc.
+    Copyright © 2016-2017, Okta, Inc.
 
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
@@ -1594,7 +1597,7 @@
      title: Okta SCIM Beta
      excerpt: Learn how to enable SCIM based provisioning from Okta to your application.
      ---
-   #+END_SRC   
+   #+END_SRC
 * To do 							   :noexport:
 ** TODO Convert example curl output to test fixtures
 ** TODO Guidance on how to handle cases where the user model doesn't include =givenName= or =familyName=

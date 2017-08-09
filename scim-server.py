@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #
-# Copyright © 2016, Okta, Inc.
+# Copyright © 2016-2017, Okta, Inc.
 # 
 # Permission is hereby granted, free of charge, to any person obtaining
 # a copy of this software and associated documentation files (the
@@ -37,6 +37,7 @@ import flask
 
 app = Flask(__name__)
 database_url = os.getenv('DATABASE_URL', 'sqlite:///test-users.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 db = SQLAlchemy(app)
 socketio = SocketIO(app)
@@ -249,5 +250,5 @@ if __name__ == "__main__":
         User.query.one()
     except:
         db.create_all()
-    app.debug = True
+    # app.debug = True
     socketio.run(app)

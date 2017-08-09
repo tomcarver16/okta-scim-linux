@@ -1,1 +1,1 @@
-web: gunicorn scim-server:app --log-file -
+web: gunicorn -k eventlet scim-server:app --timeout 10 --log-file -
