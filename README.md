@@ -55,7 +55,6 @@ Okta user attributes can be mapped from a source into Okta and can
 be mapped from Okta to a target.
 
 Below are the main operations in Okta's SCIM user provisioning lifecycle:
-
 1.  Create a user account.
 2.  Read a list of accounts, with support for searching for a preexisting account.
 3.  Update an account (user profile changes, entitlement changes, etc).
@@ -123,13 +122,13 @@ configure the test for your SCIM integration. Here is how to do that:
     Variable" link.
 6.  Name the variable "SCIM Base URL" *(case sensitive, use spaces between words)*
 7.  Set the value of the "SCIM Base URL" to the base URL for your
-    SCIM integration. 
-    
+    SCIM integration.
+
     For example, if your SCIM integration is hosted on
     `https://example.com` and uses a prefix of `/scim/v2` then the
     "SCIM Base URL" for your integration would be:
-    `https://example.com/scim/v2` 
-    
+    `https://example.com/scim/v2`
+
     If you are developing your SCIM integration in a local
     development environment, we suggest using the excellent tool
     [ngrok](https://ngrok.com/) to expose your local development environment to Runscope
@@ -151,7 +150,7 @@ server, it is time to run the test:
     results of your test.
 6.  To see the details of tests, click on the little arrow next to
     each test to expand the details of a particular test case.
-    
+
     Doing this will allow you to see the **Request** and **Response**
     for each HTTP request that was made.
 7.  Since this test is running in your own Runscope instance, we
@@ -166,10 +165,9 @@ server, it is time to run the test:
 ## Sharing test results from Runscope
 
 As you are developing your SCIM server, you will likely want to
-share test results with teammates or with Okta. 
+share test results with teammates or with Okta.
 
 Here is how to share a test result from Runscope with someone else:
-
 1.  Open the test result that you want to share.
 2.  At the top of the test result, Change the "Private / Shareable"
     toggle from "Private" to "Shareable".
@@ -177,7 +175,7 @@ Here is how to share a test result from Runscope with someone else:
     this:
     `https://www.runscope.com/radar/abcdefghijkl/m01nopq2-3456-7r8s-9012-t34567uvw890/history/123ef4gh-i567-89j0-1k2l-3m4n5o678901`
 4.  Share that URL with the person that you want to share the test
-    result with. Here is an example test result from Runscope: 
+    result with. Here is an example test result from Runscope:
     <https://www.runscope.com/radar/qmovuxkrhtws/f95ac15f-3f22-46c3-8f1a-1001fbf8fb66/history/6a35fabf-5ce5-4e48-a13f-7292b1bd3cc5>
 
 ## Next steps
@@ -186,14 +184,14 @@ Once you have a SCIM server that passes all of the Runscope tests,
 you will want to do the following things:
 
 1.  Consider using Runscope to monitor your SCIM server.
-    
+
     Once you have a test suite that passes, you should consider
     having Runscope run your SCIM test suite on a schedule and alert
     you if the test suite fails.
 2.  Follow the steps in the "Submitting to Okta" section of this
     guide.
-    
-    In particular, you will want make sure that the Profile 
+
+    In particular, you will want make sure that the Profile
     Attributes and Attribute Mappings in your Okta application show
     only the attributes and mappings that your SCIM server supports.
 
@@ -329,17 +327,16 @@ with any additional attributes that your application supports.  If your
 application supports entitlements, your SCIM 2.0 API should allow
 configuration of those as well.
 
-An HTTP POST to the `/Users` endpoint must return an immutable or 
+An HTTP POST to the `/Users` endpoint must return an immutable or
 system ID of the user (`id`) must be returned to Okta.
 
 Okta will call this SCIM API endpoint under the following circumstances:
-
 -   **Direct assignment**
-    
+
     When a user is assigned to an Okta application using the "Assign
     to People" button in the "People" tab.
 -   **Group-based assignment**
-    
+
     When a user is added to a group that is assigned to an Okta
     application. For example, an Okta administrator can assign a
     group of users to an Okta application using the "Assign to
@@ -444,7 +441,6 @@ of the [SCIM 2.0 Protocol Specification](https://tools.ietf.org/html/rfc7644).
 
 When a profile attribute of a user assigned to your SCIM enabled
 application is changed, Okta will do the following:
-
 -   Make a GET request against `/Users/{id}` on your SCIM API for the
     user to update.
 -   Take the resource returned from your SCIM API and update only the
@@ -454,7 +450,6 @@ application is changed, Okta will do the following:
 
 Examples of things that can cause changes to an Okta user profile
 are:
-
 -   A change in profile a master like Active Directory or a Human Resource
     Management Software system.
 -   A direct change of a profile attribute in Okta for a local user.
@@ -488,10 +483,9 @@ to update entitlements based on SCIM profile updates.
 Okta will send a PATCH request to your application to deactivate a
 user when an Okta user is "unassigned" from your
 application. Examples of when this happen are as follows:
-
 -   A user is manually unassigned from your application.
 -   A user is removed from a group which is assigned to your application.
--   When a user is deactivated in Okta, either manually or via 
+-   When a user is deactivated in Okta, either manually or via
     by an external profile master like Active Directory or a Human
     Resource Management Software system.
 
@@ -524,7 +518,7 @@ of the [SCIM 2.0 Protocol Specification](https://tools.ietf.org/html/rfc7644).
 ## Filtering on `id`, `userName`, and `emails`
 
 Being able to filter results by the `id`, `userName`, or `emails`
-attributes is a critical part of working with Okta. 
+attributes is a critical part of working with Okta.
 
 Your SCIM API must be able to filter users by `userName` and should
 also support filtering by `id` and `emails`. Filtering support
@@ -624,28 +618,28 @@ Below is an example of a `curl` command that makes a request to the
     {
       "Resources": [
         {
-          "active": false, 
-          "id": 1, 
+          "active": false,
+          "id": 1,
           "meta": {
-            "location": "http://scim-server.example.com/scim/v2/Users/1", 
+            "location": "http://scim-server.example.com/scim/v2/Users/1",
             "resourceType": "User"
-          }, 
+          },
           "name": {
-            "familyName": "Doe", 
-            "givenName": "Jane", 
+            "familyName": "Doe",
+            "givenName": "Jane",
             "middleName": null
-          }, 
+          },
           "schemas": [
             "urn:ietf:params:scim:schemas:core:2.0:User"
-          ], 
+          ],
           "userName": "jane.doe@example.com"
         }
-      ], 
-      "itemsPerPage": 1, 
+      ],
+      "itemsPerPage": 1,
       "schemas": [
         "urn:ietf:params:scim:api:messages:2.0:ListResponse"
-      ], 
-      "startIndex": 0, 
+      ],
+      "startIndex": 0,
       "totalResults": 1
     }
 
@@ -704,7 +698,7 @@ an HTTP PATCH request to set the `active` setting to `false`.
 The ability to query users with a POST request is described in
 [section 3.4.3](https://tools.ietf.org/html/rfc7644#section-3.4.3) of the [SCIM 2.0 Protocol Specification](https://tools.ietf.org/html/rfc7644).
 
-Querying using POST is sometimes useful if your query contains 
+Querying using POST is sometimes useful if your query contains
 [personally identifiable information](https://en.wikipedia.org/wiki/Personally_identifiable_information) that would be exposed in
 system logs if used query parameters with a GET request.
 
@@ -755,9 +749,9 @@ Here is the specification for the `/Schemas` endpoint, from
 > in ListResponse format (see Figure 3).  Individual schema
 > definitions can be returned by appending the schema URI to the
 > /Schemas endpoint.  For example:
-> 
+>
 > /Schemas/urn:ietf:params:scim:schemas:core:2.0:User
-> 
+>
 > The contents of each schema returned are described in Section 7 of
 > RFC7643.  An example representation of SCIM schemas may be found
 > in Section 8.7 of RFC7643.
@@ -798,7 +792,6 @@ example:
 Once you have SCIM provisioning working in your Okta application,
 the last thing to do before submitting your
 application to Okta is the following:
-
 1.  Check the Profile Attributes for your application.
 2.  Check the Attribute Mappings for your application.
 
@@ -819,11 +812,11 @@ Check your Profile Attributes as follows:
     -   The "Description"
     -   In the "Attributes" section, remove all attributes that are not
         supported by your application.
-        
+
         This is an important step! Your users will get confused if your
         application appears to support attributes that are not
         supported by your SCIM API.
-        
+
         You can delete an attribute by selecting an attribute, then
         clicking the "Delete" button located in right hand attribute details pane.
     -   After you've removed all unsupported attributes from the
@@ -836,17 +829,19 @@ Check your Profile Attributes as follows:
         -   External namespace
         -   Data type
         -   Attribute required
-            Only mark an attribute as required if one of the following is
-            true:
-            1.  The attribute **must** be set for your provisioning
-                integration to work.
-            2.  An Okta administrator must populate a value for
-                this attribute.
+
+    Only mark an attribute as required if one of the following is
+        true:
+
+    1.  The attribute **must** be set for your provisioning
+        integration to work.
+    2.  An Okta administrator must populate a value for
+        this attribute.
         -   Scope
-    -   If the settings for any of your supported user attributes are
+    3.  If the settings for any of your supported user attributes are
         incorrect, contact Okta and request the correction for your
         attribute.
-    
+
     Click the blue "Back to profiles" link when you are done checking
     the Profile Attributes for your application.
 
@@ -860,7 +855,6 @@ user's Universal Directory profile.
 
 To check the User Profile Mappings for your application, do the
 following:
-
 -   From the "Admin" section in Okta, open the settings page for your
     application.
 -   In the "Provisioning" tab, scroll to the bottom and click the
@@ -883,7 +877,7 @@ SCIM, send an email to [developers@okta.com](developers@okta.com).
 # Appendix: Details on the example SCIM server
 
 Included in this git repository is an example SCIM server written in
-Python. 
+Python.
 
 This example SCIM server demonstrates how to implement a basic SCIM
 server that can create, read, update, and deactivate Okta users.
@@ -891,6 +885,13 @@ server that can create, read, update, and deactivate Okta users.
 The "Required SCIM Capabilities" section has the sample code that
 handles the HTTP requests to this sample application, below we
 describe the rest of code used in the example.
+
+## Deploy to Heroku
+
+The easiest way to get this example SCIM server running is to use
+the "Deploy to Heroku" button below:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
 ## How to run
 
@@ -903,20 +904,20 @@ First, start by doing a `git checkout` of this repository, then
 `cd` to directory that `git` creates. Then, do the following:
 
 1.  `cd` to the directory you just checked out:
-    
+
         $ cd okta-scim-beta
 2.  Create an isolated Python environment named "venv" using [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs/):
-    
+
         $ virtualenv venv
 3.  Next, activate the newly created virtualenv:
-    
+
         $ source venv/bin/activate
 4.  Then, install the dependencies for the sample SCIM server using
     Python's ["pip" package manager](https://en.wikipedia.org/wiki/Pip_%28package_manager%29):
-    
+
         $ pip install -r requirements.txt
 5.  Finally, start the example SCIM server using this command:
-    
+
         $ python scim-server.py
 
 ## Introduction
@@ -935,7 +936,7 @@ use:
     import os
     import re
     import uuid
-    
+
     from flask import Flask
     from flask import render_template
     from flask import request
@@ -955,6 +956,7 @@ Next we initialize Flask, SQLAlchemy, and SocketIO:
 
     app = Flask(__name__)
     database_url = os.getenv('DATABASE_URL', 'sqlite:///test-users.db')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     db = SQLAlchemy(app)
     socketio = SocketIO(app)
@@ -982,10 +984,10 @@ a [SCIM "User" resource schema](https://tools.ietf.org/html/rfc7643#section-4.1)
         familyName = db.Column(db.String(250))
         middleName = db.Column(db.String(250))
         givenName = db.Column(db.String(250))
-    
+
         def __init__(self, resource):
             self.update(resource)
-    
+
         def update(self, resource):
             for attribute in ['userName', 'active']:
                 if attribute in resource:
@@ -993,7 +995,7 @@ a [SCIM "User" resource schema](https://tools.ietf.org/html/rfc7643#section-4.1)
             for attribute in ['givenName', 'middleName', 'familyName']:
                 if attribute in resource['name']:
                     setattr(self, attribute, resource['name'][attribute])
-    
+
         def to_scim_resource(self):
             rv = {
                 "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"],
@@ -1028,7 +1030,7 @@ array of SCIM resources into a
             self.start_index = start_index
             self.count = count
             self.total_results = total_results
-    
+
         def to_scim_resource(self):
             rv = {
                 "schemas": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"],
@@ -1098,20 +1100,20 @@ The code described above is as follows:
                       {'data': obj},
                       broadcast=True,
                       namespace='/test')
-    
-    
+
+
     def render_json(obj):
         rv = obj.to_scim_resource()
         send_to_browser(rv)
         return flask.jsonify(rv)
-    
-    
+
+
     @socketio.on('connect', namespace='/test')
     def test_connect():
         for user in User.query.filter_by(active=True).all():
             emit('user', {'data': user.to_scim_resource()})
-    
-    
+
+
     @socketio.on('disconnect', namespace='/test')
     def test_disconnect():
         print('Client disconnected')
@@ -1128,7 +1130,7 @@ directory of this project.
         var uri = 'https://' + document.domain  + namespace;
         console.log(uri);
         var socket = io.connect(uri);
-    
+
         socket.on('user', function(msg) {
             console.log(msg);
             var user = msg.data;
@@ -1139,7 +1141,7 @@ directory of this project.
             } else if (user.active) {
                 $('#users-table').append(userRow);
             }
-    
+
             if($(user_element).length && user.active) {
                 $(user_element).show();
             }
@@ -1163,13 +1165,13 @@ only happen if the User table isn't defined.
             User.query.one()
         except:
             db.create_all()
-        app.debug = True
+        # app.debug = True
         socketio.run(app)
 
 ## Frequently Asked Questions (FAQ)
 
--   What are the differences between SCIM 1.1 and 2.0?    
-    
+-   What are the differences between SCIM 1.1 and 2.0?
+
     | Section | SCIM 1.1 | SCIM 2.0 | Notes |
     | --- | --- | --- | --- |
     | Namespaces | <ul><li>urn:scim:schemas:core:1.0</li><li>urn:scim:schemas:extension:enterprise:1.0</li><ul> | <ul><li>urn:ietf:params:scim:schemas:core:2.0:User</li><li>urn:ietf:params:scim:schemas:extension:enterprise:2.0:User</li><ul> | Namespaces are different therefore 2.0 is not backwards compatible with 1.1 |
@@ -1180,29 +1182,29 @@ only happen if the User table isn't defined.
     | Query by POST /search | N/A | [Section 3.4.3](https://tools.ietf.org/html/rfc7644#section-3.4.3) | |
 -   What if the SCIM 1.1 spec isn't clear on a specific use case or
     scenario?
-    
+
     Okta recommends looking at the SCIM 2.0 spec for more
     clarification.  The SCIM 2.0 spec provides more guidelines and
     examples for various scenario's.
 
 -   Why do I need to implement the `type` attribute for attributes
     such as emails/phoneNumbers/addresses?
-    
+
     The SCIM User Profile allows for an array of emails.  The only
     way to differentiate between emails is to use the `type`
     sub-attribute.  See [section 2.4](https://tools.ietf.org/html/rfc7643#section-2.4) of RFC 7643 for more details:
-    
+
     > When returning multi-valued attributes, service providers SHOULD
     > canonicalize the value returned (e.g., by returning a value for the
     > sub-attribute "type", such as "home" or "work") when appropriate
     > (e.g., for email addresses and URLs).
-    > 
+    >
     > Service providers MAY return element objects with the same "value"
     > sub-attribute more than once with a different "type" sub-attribute
     > (e.g., the same email address may be used for work and home) but
     > SHOULD NOT return the same (type, value) combination more than once
     > per attribute, as this complicates processing by the client.
-    > 
+    >
     > When defining schema for multi-valued attributes, it is considered a
     > good practice to provide a type attribute that MAY be used for the
     > purpose of canonicalization of values.  In the schema definition for
@@ -1211,7 +1213,7 @@ only happen if the User table isn't defined.
 -   I only have one email/phone number/address in my user profile.
     Do I need to implement the array of emails/phone
     numbers/addresses?
-    
+
     Yes, the you must return these fields in an array, which is
     specified in the SCIM spec as a multi-valued attribute: [Section
     2.4](https://tools.ietf.org/html/rfc7643#section-2.4)
@@ -1237,11 +1239,12 @@ server depends on, and what each dependency does.
 | [six](https://pypi.python.org/pypi/six) | 1.10.0 | Python 2 and 3 compatibility library. | [MIT](https://bitbucket.org/gutworth/six/src/2c12cd64ff0c7797bb30b0d466e902f7ecd6e562/LICENSE?at=default) |
 | [wsgiref](https://pypi.python.org/pypi/wsgiref) | 0.1.2 | Provides validation support for WSGI. | [PSF or ZPL](https://pypi.python.org/pypi/wsgiref) |
 | [psycopg2](http://initd.org/psycopg/) |  | Popular PostgreSQL adapter. | [LGPL 3 or ZPL](http://initd.org/psycopg/license/) |
+| [eventlet](http://eventlet.net/) |  | Concurrent networking library. | [MIT](https://github.com/eventlet/eventlet/blob/master/LICENSE) |
 
 # License information
 
-    Copyright © 2016, Okta, Inc.
-    
+    Copyright © 2016-2017, Okta, Inc.
+
     Permission is hereby granted, free of charge, to any person obtaining
     a copy of this software and associated documentation files (the
     "Software"), to deal in the Software without restriction, including
@@ -1249,10 +1252,10 @@ server depends on, and what each dependency does.
     distribute, sublicense, and/or sell copies of the Software, and to
     permit persons to whom the Software is furnished to do so, subject to
     the following conditions:
-    
+
     The above copyright notice and this permission notice shall be
     included in all copies or substantial portions of the Software.
-    
+
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
     EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
     MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND

@@ -964,6 +964,36 @@
   The "Required SCIM Capabilities" section has the sample code that
   handles the HTTP requests to this sample application, below we
   describe the rest of code used in the example.
+
+** Deploy to Heroku
+   The easiest way to get this example SCIM server running is to use
+   the "Deploy to Heroku" button below:
+
+   #+BEGIN_HTML
+   [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+   #+END_HTML
+   #+BEGIN_SRC javascript :tangle app.json :exports none
+     {
+       "name": "Okta SCIM 2.0 Example Server",
+       "description": "A Python/Flask app that implements the SCIM 2.0 standard.",
+       "repository": "https://github.com/oktadeveloper/okta-scim-beta",
+       "logo": "https://www.okta.com/sites/all/themes/Okta/images/blog/Auras/Okta_Aura_Solid_BrightBlue_40percent.png",
+       "success_url": "/db",
+       "env": {
+         "TOKEN": {
+           "description": "Optional token to use to validate SCIM clients",
+           "value": "012A345B-C678-9DEF-GH01-234I5J6789K0"
+         }
+       },
+       "addons": [
+         {
+           "plan": "heroku-postgresql:hobby-dev"
+         }
+       ],
+       "keywords": ["node", "express", "oidc", "okta"]
+     }
+
+   #+END_SRC
 ** How to run
    This example code was written for *Python 2.7* and does not
    currently work with Python 3.
@@ -1408,11 +1438,11 @@
      for package in data:
          if not package['name']:
              continue
-	 output += "| [{name}]({url}) | {version} | {description} | [{license}]({license_url}) |\n".format(**package)
+         output += "| [{name}]({url}) | {version} | {description} | [{license}]({license_url}) |\n".format(**package)
      return output
    #+END_SRC
 
-   #+RESULTS[c2870a7691b8cbcaf2849563db3ab81dd543de51]:
+   #+RESULTS[f8bb5fd689e83fe7a46e0172d6c5dc582fd32ab0]:
    #+BEGIN_HTML
    | Name | Version | Description | License |
    | ---- | --- | --- | --- |
@@ -1430,6 +1460,7 @@
    | [six](https://pypi.python.org/pypi/six) | 1.10.0 | Python 2 and 3 compatibility library. | [MIT](https://bitbucket.org/gutworth/six/src/2c12cd64ff0c7797bb30b0d466e902f7ecd6e562/LICENSE?at=default) |
    | [wsgiref](https://pypi.python.org/pypi/wsgiref) | 0.1.2 | Provides validation support for WSGI. | [PSF or ZPL](https://pypi.python.org/pypi/wsgiref) |
    | [psycopg2](http://initd.org/psycopg/) |  | Popular PostgreSQL adapter. | [LGPL 3 or ZPL](http://initd.org/psycopg/license/) |
+   | [eventlet](http://eventlet.net/) |  | Concurrent networking library. | [MIT](https://github.com/eventlet/eventlet/blob/master/LICENSE) |
    #+END_HTML
 
 * License information
