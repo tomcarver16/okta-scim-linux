@@ -67,9 +67,9 @@ class ListResponse():
 
 
 class User():
-    def __init__(self, username, firstName, lastName, active=True, uid=uuid.uuid4()):
+    def __init__(self, userName, firstName, lastName, active=True, uid=uuid.uuid4()):
         self.active = active
-        self.userName = username
+        self.userName = userName
         self.firstName = firstName
         self.lastName = lastName
         self.id = uid
@@ -147,19 +147,21 @@ def user_get(user_id):
 
 @app.route("/scim/v2/Users", methods=['POST'])
 def users_post():
-    return
-    # user_resource = request.get_json(force=True)
-    # user = User(user_resource)
-    # user.id = str(uuid.uuid4())
-    # db.session.add(user)
-    # db.session.commit()
-    # rv = user.to_scim_resource()
-    # send_to_browser(rv)
-    # resp = flask.jsonify(rv)
-    # resp.headers['Location'] = url_for('user_get',
-    #                                    user_id=user.userName,
-    #                                    _external=True)
-    # return resp, 201
+    user_resource = request.get_json(force=True)
+    for key in user_resource.keys():
+        user_resource[key] = user_resource[key].encode('utf-8')
+    userName = user_resource["userName"]
+    firstName = user_resource["firstName"]
+    lastName = user_resource["lastName"]
+    user = User(userName, firstName, lastName, active=True, uid=uuid.uuid4())
+    os.system("useradd -p ")
+    rv = user.to_scim_resource()
+    send_to_browser(rv)
+    resp = flask.jsonify(rv)
+    resp.headers['Location'] = url_for('user_get',
+                                        user_id=user.userName,
+                                        _external=True)
+    return resp, 201
 
 
 @app.route("/scim/v2/Users/<user_id>", methods=['PUT'])
