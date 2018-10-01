@@ -24,6 +24,7 @@
 import os
 import re
 import uuid
+import pwd
 
 from flask import Flask
 from flask import render_template
@@ -33,7 +34,6 @@ from flask_socketio import SocketIO
 from flask_socketio import emit
 from flask_sqlalchemy import SQLAlchemy
 import flask
-
 
 app = Flask(__name__)
 database_url = os.getenv('DATABASE_URL', 'sqlite:///test-users.db')
@@ -66,28 +66,13 @@ class ListResponse():
         return rv
 
 
-class User(db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.String(36), primary_key=True)
-    active = db.Column(db.Boolean, default=False)
-    userName = db.Column(db.String(250),
-                         unique=True,
-                         nullable=False,
-                         index=True)
-    familyName = db.Column(db.String(250))
-    middleName = db.Column(db.String(250))
-    givenName = db.Column(db.String(250))
-
-    def __init__(self, resource):
-        self.update(resource)
-
-    def update(self, resource):
-        for attribute in ['userName', 'active']:
-            if attribute in resource:
-                setattr(self, attribute, resource[attribute])
-        for attribute in ['givenName', 'middleName', 'familyName']:
-            if attribute in resource['name']:
-                setattr(self, attribute, resource['name'][attribute])
+class User():
+    def __init__(self, username, firstName, lastName, active=True, uid=uuid.uuid4()):
+        self.active = active
+        self.userName = username
+        self.firstName = firstName
+        self.lastName = lastName
+        self.id = uid
 
     def to_scim_resource(self):
         rv = {
@@ -95,9 +80,8 @@ class User(db.Model):
             "id": self.id,
             "userName": self.userName,
             "name": {
-                "familyName": self.familyName,
-                "givenName": self.givenName,
-                "middleName": self.middleName,
+                "lastName": self.lastName,
+                "firstName": self.firstName,
             },
             "active": self.active,
             "meta": {
@@ -136,8 +120,9 @@ def render_json(obj):
 
 @socketio.on('connect', namespace='/test')
 def test_connect():
-    for user in User.query.filter_by(active=True).all():
-        emit('user', {'data': user.to_scim_resource()})
+    return
+    # for user in User.query.filter_by(active=True).all():
+    #     emit('user', {'data': user.to_scim_resource()})
 
 
 @socketio.on('disconnect', namespace='/test')
@@ -152,83 +137,79 @@ def hello():
 
 @app.route("/scim/v2/Users/<user_id>", methods=['GET'])
 def user_get(user_id):
-    try:
-        user = User.query.filter_by(id=user_id).one()
-    except:
-        return scim_error("User not found", 404)
-    return render_json(user)
+    return
+    # try:
+    #     user = User.query.filter_by(id=user_id).one()
+    # except:
+    #     return scim_error("User not found", 404)
+    # return render_json(user)
 
 
 @app.route("/scim/v2/Users", methods=['POST'])
 def users_post():
-    user_resource = request.get_json(force=True)
-    user = User(user_resource)
-    user.id = str(uuid.uuid4())
-    db.session.add(user)
-    db.session.commit()
-    rv = user.to_scim_resource()
-    send_to_browser(rv)
-    resp = flask.jsonify(rv)
-    resp.headers['Location'] = url_for('user_get',
-                                       user_id=user.userName,
-                                       _external=True)
-    return resp, 201
+    return
+    # user_resource = request.get_json(force=True)
+    # user = User(user_resource)
+    # user.id = str(uuid.uuid4())
+    # db.session.add(user)
+    # db.session.commit()
+    # rv = user.to_scim_resource()
+    # send_to_browser(rv)
+    # resp = flask.jsonify(rv)
+    # resp.headers['Location'] = url_for('user_get',
+    #                                    user_id=user.userName,
+    #                                    _external=True)
+    # return resp, 201
 
 
 @app.route("/scim/v2/Users/<user_id>", methods=['PUT'])
 def users_put(user_id):
-    user_resource = request.get_json(force=True)
-    user = User.query.filter_by(id=user_id).one()
-    user.update(user_resource)
-    db.session.add(user)
-    db.session.commit()
-    return render_json(user)
+    return
+    # user_resource = request.get_json(force=True)
+    # user = User.query.filter_by(id=user_id).one()
+    # user.update(user_resource)
+    # db.session.add(user)
+    # db.session.commit()
+    # return render_json(user)
 
 
 @app.route("/scim/v2/Users/<user_id>", methods=['PATCH'])
 def users_patch(user_id):
-    patch_resource = request.get_json(force=True)
-    for attribute in ['schemas', 'Operations']:
-        if attribute not in patch_resource:
-            message = "Payload must contain '{}' attribute.".format(attribute)
-            return message, 400
-    schema_patchop = 'urn:ietf:params:scim:api:messages:2.0:PatchOp'
-    if schema_patchop not in patch_resource['schemas']:
-        return "The 'schemas' type in this request is not supported.", 501
-    user = User.query.filter_by(id=user_id).one()
-    for operation in patch_resource['Operations']:
-        if 'op' not in operation and operation['op'] != 'replace':
-            continue
-        value = operation['value']
-        for key in value.keys():
-            setattr(user, key, value[key])
-    db.session.add(user)
-    db.session.commit()
-    return render_json(user)
+    return
+    # patch_resource = request.get_json(force=True)
+    # for attribute in ['schemas', 'Operations']:
+    #     if attribute not in patch_resource:
+    #         message = "Payload must contain '{}' attribute.".format(attribute)
+    #         return message, 400
+    # schema_patchop = 'urn:ietf:params:scim:api:messages:2.0:PatchOp'
+    # if schema_patchop not in patch_resource['schemas']:
+    #     return "The 'schemas' type in this request is not supported.", 501
+    # user = User.query.filter_by(id=user_id).one()
+    # for operation in patch_resource['Operations']:
+    #     if 'op' not in operation and operation['op'] != 'replace':
+    #         continue
+    #     value = operation['value']
+    #     for key in value.keys():
+    #         setattr(user, key, value[key])
+    # db.session.add(user)
+    # db.session.commit()
+    # return render_json(user)
 
 
 @app.route("/scim/v2/Users", methods=['GET'])
 def users_get():
-    query = User.query
-    request_filter = request.args.get('filter')
-    match = None
-    if request_filter:
-        match = re.match('(\w+) eq "([^"]*)"', request_filter)
-    if match:
-        (search_key_name, search_value) = match.groups()
-        search_key = getattr(User, search_key_name)
-        query = query.filter(search_key == search_value)
-    count = int(request.args.get('count', 100))
-    start_index = int(request.args.get('startIndex', 1))
-    if start_index < 1:
-        start_index = 1
-    start_index -= 1
-    query = query.offset(start_index).limit(count)
-    total_results = query.count()
-    found = query.all()
-    rv = ListResponse(found,
-                      start_index=start_index,
-                      count=count,
+    users = list(pwd.getpwall())
+    userList = []
+    total_results = 0
+    for usr in users:
+        if usr.pw_uid >= 1000 and usr.pw_uid <= 60000:
+            userName = str(usr[0])
+            firstName = str(usr[4]).split(" ")[0]
+            lastName = str(usr[4]).split(" ")[1].replace(",", "")
+            userList.append(User(userName, firstName, lastName, active=True, uid=uuid.uuid4()))
+            total_results+=1
+    rv = ListResponse(userList,
+                      start_index=1,
                       total_results=total_results)
     return flask.jsonify(rv.to_scim_resource())
 
