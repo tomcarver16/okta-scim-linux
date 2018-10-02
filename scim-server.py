@@ -26,6 +26,7 @@ import re
 import uuid
 import pwd
 import sys
+import traceback
 
 from flask import Flask
 from flask import render_template
@@ -75,6 +76,12 @@ class User():
         self.familyName = lastName
         self.middleName = middleName
         self.id = uid
+        user_file.append_file(self.userName, self.id)
+
+    @staticmethod
+    def run_command(command):
+        os.system("{0}".format(command))
+        return 
 
     def to_scim_resource(self):
         rv = {
@@ -98,6 +105,55 @@ class User():
         }
         return rv
 
+class ServiceProviderConfigs():
+    def __init__(self, implemented_capabilities=None):
+        self.list = implemented_capabilities
+
+    def to_scim_resource(self):
+        rv = {
+            "urn:okta:schemas:scim:providerconfig:1.0":{
+                "userManagementCapabilities": [
+                    "GROUP_PUSH",
+                    "IMPORT_NEW_USERS",
+                    "IMPORT_PROFILE_UPDATES",
+                    "PUSH_NEW_USERS",
+                    "PUSH_PASSWORD_UPDATES",
+                    "PUSH_PENDING_USERS",
+                    "PUSH_PROFILE_UPDATES",
+                    "PUSH_USER_DEACTIVATION",
+                    "REACTIVATE_USERS"
+                ]
+            }
+        }
+        return rv
+
+class ScimFile():
+    def __init__(self, fileName):
+        self.fileName = fileName
+        f = open(fileName, "w+")
+        f.close()
+        self.dict = {}
+    
+    def append_file(self, user, uid):
+        with open(self.fileName, "w+") as f:
+            f.write("{0} : {1}\n".format(uid, user))
+        return 
+    
+    def get_dictonary(self):
+        with open(self.fileName, "r+") as f:
+            for line in f:
+                if line != None:
+                    (key, val) = line.split(":")
+                    self.dict[key] = val
+                else:
+                    return self.dict
+        return self.dict
+
+    def update_dictonary(self):
+        return self.get_dictonary()
+        
+
+    
 
 def scim_error(message, status_code=500):
     rv = {
@@ -161,9 +217,15 @@ def user_get(user_id):
 #             toBeEncoded[key] = toBeEncoded[key].encode('utf-8')
 #     return toBeEncoded
 
+@app.route("/scim/v2/ServiceProviderConfigs", methods=['GET'])
+def implemented_capabilities():
+    print("/ServiceProviderConfigs GET")
+    data = ServiceProviderConfigs()
+    return render_json(data)
 
 @app.route("/scim/v2/Users", methods=['POST'])
 def users_post():
+    print("/Users POST")
     user_resource = request.get_json(force=True)
     userName = user_resource["userName"].split("@")[0]
     firstName = user_resource["name"]["givenName"]
@@ -171,21 +233,38 @@ def users_post():
     password = user_resource["password"]
     active = user_resource["active"]
     user = User(userName, firstName, lastName, password=password, active=active, uid=uuid.uuid4())
-    print('useradd -p {0} -c "{1}" {2}'.format(password, firstName + " " + lastName, userName))
-    os.setuid(os.geteuid())
-    os.system('useradd -p {0} -c "{1}" {2}'.format(password, firstName + " " + lastName, userName))
+    print('useradd -p {0} -c "{1}" -s {2} {3}'.format(password, firstName + ", " + lastName + ", " + uuid.uuid4(), "/bin/bash", userName))
+    User.run_command('useradd -p {0} -c "{1}" -s {2} {3}'.format(password, firstName + ", " + lastName + ", " + uuid.uuid4(), "/bin/bash", userName))
     rv = user.to_scim_resource()
     send_to_browser(rv)
     resp = flask.jsonify(rv)
     resp.headers['Location'] = url_for('user_get',
-                                        user_id=user.userName,
+                                        user_id=user.id,
                                         _external=True)
     return resp, 201
 
 
 @app.route("/scim/v2/Users/<user_id>", methods=['PUT'])
 def users_put(user_id):
+
     return
+    # user_resource = request.get_json(force=True)
+    # userName = user_resource["userName"].split("@")[0]
+    # firstName = user_resource["name"]["givenName"]
+    # lastName = user_resource["name"]["familyName"]
+    # password = user_resource["password"]
+    # active = user_resource["active"]
+    # user = User(userName, firstName, lastName, password=password, active=active, uid=uuid.uuid4())
+    # print('useradd -p {0} -c "{1}" {2}'.format(password, firstName + " " + lastName, userName))
+    # os.setuid(os.geteuid())
+    # os.system('useradd -p {0} -c "{1}" {2}'.format(password, firstName + " " + lastName, userName))
+    # rv = user.to_scim_resource()
+    # send_to_browser(rv)
+    # resp = flask.jsonify(rv)
+    # resp.headers['Location'] = url_for('user_get',
+    #                                     user_id=user.userName,
+    #                                     _external=True)
+    # return resp, 201
     # user_resource = request.get_json(force=True)
     # user = User.query.filter_by(id=user_id).one()
     # user.update(user_resource)
@@ -196,6 +275,20 @@ def users_put(user_id):
 
 @app.route("/scim/v2/Users/<user_id>", methods=['PATCH'])
 def users_patch(user_id):
+    print("/Users PATCH")
+    patch_resource = request.get_json(force=True)
+    if user_map.get(user_id):
+        if bool(patch_resource["active"]) == False:
+            User.run_command('userdel {0}'.format(user_map.get(user_id))) #TODO: Delete user from text file on completion
+        else:
+            #TODO: Check pwd for differences of users
+            return
+
+    # user_details = pwd.getpwnam(user_map.get(user_id))
+    # rv = user.to_scim_resource()
+    # send_to_browser(rv)
+    # resp = flask.jsonify(rv)
+
     return
     # patch_resource = request.get_json(force=True)
     # for attribute in ['schemas', 'Operations']:
@@ -219,6 +312,7 @@ def users_patch(user_id):
 
 @app.route("/scim/v2/Users", methods=['GET'])
 def users_get():
+    print("/Users GET")
     users = list(pwd.getpwall())
     userList = []
     total_results = 0
@@ -248,6 +342,11 @@ def create_db():
 
 
 if __name__ == "__main__":
+    try: 
+        user_file = ScimFile("users.txt")
+        user_map = user_file.get_dictonary()
+    except Exception as e: 
+        print("Error writing file {0} {1}".format(e, traceback.format_exc()))
     euid = os.geteuid()
     if euid != 0:
         print "Script not started as root. Running sudo.."
