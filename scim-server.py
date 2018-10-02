@@ -25,6 +25,7 @@ import os
 import re
 import uuid
 import pwd
+import sys
 
 from flask import Flask
 from flask import render_template
@@ -67,11 +68,12 @@ class ListResponse():
 
 
 class User():
-    def __init__(self, userName, firstName, lastName, active=True, uid=uuid.uuid4()):
+    def __init__(self, userName, firstName, lastName, middleName=None, password="password1", active=True, uid=uuid.uuid4()):
         self.active = active
         self.userName = userName
-        self.firstName = firstName
-        self.lastName = lastName
+        self.givenName = firstName
+        self.familyName = lastName
+        self.middleName = middleName
         self.id = uid
 
     def to_scim_resource(self):
@@ -80,8 +82,9 @@ class User():
             "id": self.id,
             "userName": self.userName,
             "name": {
-                "lastName": self.lastName,
-                "firstName": self.firstName,
+                "familyName": self.familyName,
+                "middleName": self.middleName,
+                "givenName": self.givenName,
             },
             "active": self.active,
             "meta": {
@@ -144,17 +147,33 @@ def user_get(user_id):
     #     return scim_error("User not found", 404)
     # return render_json(user)
 
+# def encode_utf8(toBeEncoded):
+#     print(toBeEncoded)
+#     if type(toBeEncoded) == list:
+#         for item in toBeEncoded: 
+#             if type(item) == dict:
+#                 encode_utf8(item)
+#             item = item.encode('utf-8')
+#     else:
+#         for key in list(toBeEncoded.keys()):
+#             if type(toBeEncoded[key]) == list or type(toBeEncoded[key]) == dict:
+#                 encode_utf8(toBeEncoded[key])
+#             toBeEncoded[key] = toBeEncoded[key].encode('utf-8')
+#     return toBeEncoded
+
 
 @app.route("/scim/v2/Users", methods=['POST'])
 def users_post():
     user_resource = request.get_json(force=True)
-    for key in user_resource.keys():
-        user_resource[key] = user_resource[key].encode('utf-8')
-    userName = user_resource["userName"]
-    firstName = user_resource["firstName"]
-    lastName = user_resource["lastName"]
-    user = User(userName, firstName, lastName, active=True, uid=uuid.uuid4())
-    os.system("useradd -p ")
+    userName = user_resource["userName"].split("@")[0]
+    firstName = user_resource["name"]["givenName"]
+    lastName = user_resource["name"]["familyName"]
+    password = user_resource["password"]
+    active = user_resource["active"]
+    user = User(userName, firstName, lastName, password=password, active=active, uid=uuid.uuid4())
+    print('useradd -p {0} -c "{1}" {2}'.format(password, firstName + " " + lastName, userName))
+    os.setuid(os.geteuid())
+    os.system('useradd -p {0} -c "{1}" {2}'.format(password, firstName + " " + lastName, userName))
     rv = user.to_scim_resource()
     send_to_browser(rv)
     resp = flask.jsonify(rv)
@@ -229,9 +248,12 @@ def create_db():
 
 
 if __name__ == "__main__":
-    try:
-        User.query.one()
-    except:
-        db.create_all()
+    euid = os.geteuid()
+    if euid != 0:
+        print "Script not started as root. Running sudo.."
+        args = ['sudo', sys.executable] + sys.argv + [os.environ]
+        os.execlpe('sudo', *args)
+
+    print 'Running. Your euid is', euid
     # app.debug = True
     socketio.run(app)
